@@ -199,7 +199,7 @@ export default function LessonsPage() {
                   
                   <div className="flex items-center justify-between text-xs text-amber-600">
                     <span>Order: {lesson.orderIndex}</span>
-                    <span>{lesson.contents.length} content(s)</span>
+                    <span>{(lesson.contents?.length ?? 0)} content(s)</span>
                   </div>
                   
                   <div className="flex gap-2">

@@ -36,40 +36,65 @@ export interface CreateLessonRequest {
   required: boolean;
 }
 
+function normalizeLesson(raw: unknown): Lesson {
+  const obj = (raw as Record<string, unknown>) || {};
+  const contentsRaw = obj['contents'];
+  const requiredRaw = obj['required'];
+  const isRequiredRaw = obj['isRequired'];
+
+  return {
+    id: Number(obj['id'] ?? 0),
+    title: String(obj['title'] ?? ''),
+    description: String(obj['description'] ?? ''),
+    type: (obj['type'] as Lesson['type']) ?? 'READING',
+    orderIndex: Number(obj['orderIndex'] ?? 0),
+    course: obj['course'] as Course,
+    contents: Array.isArray(contentsRaw) ? (contentsRaw as LessonContent[]) : [],
+    required: Boolean(requiredRaw ?? isRequiredRaw ?? false),
+  };
+}
+
 export const lessonService = {
   async getAll(): Promise<Lesson[]> {
-    const response = await httpClient.get<any>('/lessons');
-    return response.data || response;
+    const response = await httpClient.get<unknown>('/lessons');
+    const data = (response as { data?: unknown }).data ?? response;
+    return Array.isArray(data) ? data.map((l) => normalizeLesson(l)) : [];
   },
 
   async getById(id: number): Promise<Lesson> {
-    const response = await httpClient.get<any>(`/lessons/${id}`);
-    return response.data || response;
+    const response = await httpClient.get<unknown>(`/lessons/${id}`);
+    const data = (response as { data?: unknown }).data ?? response;
+    return normalizeLesson(data);
   },
 
   async getByCourseId(courseId: number): Promise<Lesson[]> {
-    const response = await httpClient.get<any>(`/lessons/course/${courseId}`);
-    return response.data || response;
+    const response = await httpClient.get<unknown>(`/lessons/course/${courseId}`);
+    const data = (response as { data?: unknown }).data ?? response;
+    return Array.isArray(data) ? data.map((l) => normalizeLesson(l)) : [];
   },
 
   async getOrderedByCourseId(courseId: number): Promise<Lesson[]> {
-    const response = await httpClient.get<any>(`/lessons/course/${courseId}/ordered`);
-    return response.data || response;
+    const response = await httpClient.get<unknown>(`/lessons/course/${courseId}/ordered`);
+    const data = (response as { data?: unknown }).data ?? response;
+    return Array.isArray(data) ? data.map((l) => normalizeLesson(l)) : [];
   },
 
   async getByType(lessonType: 'AUDIO' | 'READING' | 'IMAGE_OBJECT'): Promise<Lesson[]> {
-    const response = await httpClient.get<any>(`/lessons/type/${lessonType}`);
-    return response.data || response;
+    const response = await httpClient.get<unknown>(`/lessons/type/${lessonType}`);
+    const data = (response as { data?: unknown }).data ?? response;
+    return Array.isArray(data) ? data.map((l) => normalizeLesson(l)) : [];
   },
 
   async create(data: CreateLessonRequest): Promise<Lesson> {
-    const response = await httpClient.post<any>('/lessons', data);
-    return response.data || response;
+    const response = await httpClient.post<unknown>('/lessons', data);
+    const resData = (response as { data?: unknown }).data ?? response;
+    return normalizeLesson(resData);
   },
 
   async update(id: number, data: Partial<CreateLessonRequest>): Promise<Lesson> {
-    const response = await httpClient.put<any>(`/lessons/${id}`, data);
-    return response.data || response;
+    const response = await httpClient.put<unknown>(`/lessons/${id}`, data);
+    const resData = (response as { data?: unknown }).data ?? response;
+    return normalizeLesson(resData);
   },
 
   async delete(id: number): Promise<void> {

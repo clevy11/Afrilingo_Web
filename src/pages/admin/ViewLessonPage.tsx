@@ -160,12 +160,12 @@ export default function ViewLessonPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <BookOpen className="h-5 w-5 text-amber-600" />
-              Lesson Contents ({lesson.contents.length})
+              Lesson Contents ({lesson.contents?.length ?? 0})
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {lesson.contents.map((content, index) => (
+              {(lesson.contents ?? []).map((content, index) => (
                 <div key={content.id} className="p-4 bg-amber-50 rounded-lg border border-amber-200">
                   <div className="flex items-start gap-3">
                     <span className="text-2xl">{getContentTypeIcon(content.contentType)}</span>
@@ -190,7 +190,7 @@ export default function ViewLessonPage() {
                   </div>
                 </div>
               ))}
-              {lesson.contents.length === 0 && (
+              {(lesson.contents?.length ?? 0) === 0 && (
                 <p className="text-amber-600 text-center py-4">No content available for this lesson.</p>
               )}
             </div>

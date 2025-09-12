@@ -17,6 +17,40 @@ export default function ViewLessonPage() {
     queryFn: () => lessonService.getById(lessonId),
     enabled: !!lessonId,
   });
+  const { data: contents, isLoading: contentsLoading, error: contentsError } = useQuery({
+    queryKey: ['lesson-contents', lessonId],
+    queryFn: () => lessonService.getAllContents(lessonId),
+    enabled: !!lessonId,
+  });
+  if(contentsLoading) {
+    return (
+      <FormLayout
+        title="View Lesson"
+        description="Lesson details and content"
+        backUrl="/admin/lessons"
+      >
+        <div className="flex items-center justify-center min-h-64">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-600 mx-auto"></div>
+            <p className="mt-2 text-amber-700">Loading lesson...</p>
+          </div>
+        </div>
+      </FormLayout>
+    );
+  }
+  if(contentsError) {
+    return (
+      <FormLayout
+        title="View Lesson"
+        description="Lesson details and content"
+        backUrl="/admin/lessons"
+      >
+        <div className="text-center text-red-600 p-8">
+          <p>Failed to load lesson. Please try again.</p>
+        </div>
+      </FormLayout>
+    );
+  }
 
   if (isLoading) {
     return (
@@ -160,12 +194,12 @@ export default function ViewLessonPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <BookOpen className="h-5 w-5 text-amber-600" />
-              Lesson Contents ({lesson.contents?.length ?? 0})
+              Lesson Contents ({contents?.length ?? 0})
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {(lesson.contents ?? []).map((content, index) => (
+              {(contents ?? []).map((content, index) => (
                 <div key={content.id} className="p-4 bg-amber-50 rounded-lg border border-amber-200">
                   <div className="flex items-start gap-3">
                     <span className="text-2xl">{getContentTypeIcon(content.contentType)}</span>
@@ -190,7 +224,7 @@ export default function ViewLessonPage() {
                   </div>
                 </div>
               ))}
-              {(lesson.contents?.length ?? 0) === 0 && (
+              {(contents?.length ?? 0) === 0 && (
                 <p className="text-amber-600 text-center py-4">No content available for this lesson.</p>
               )}
             </div>

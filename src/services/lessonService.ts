@@ -8,6 +8,14 @@ export interface LessonContent {
   contentData: string;
   mediaUrl: string;
 }
+export interface LessonContentResponse {
+  id: number;
+  title: string;
+  description: string;
+  type: 'TEXT' | 'AUDIO' | 'IMAGE_OBJECT';
+  contentData: string;
+  mediaUrl: string;
+}
 
 export interface Lesson {
   id: number;
@@ -54,11 +62,26 @@ function normalizeLesson(raw: unknown): Lesson {
   };
 }
 
+function normalizeLessonContent(raw: unknown): LessonContent {
+  const obj = (raw as Record<string, unknown>) || {};
+  return {
+    id: Number(obj['id'] ?? 0),
+    contentType: (obj['contentType'] as LessonContent['contentType']) ?? 'TEXT',
+    contentData: String(obj['contentData'] ?? ''),
+    mediaUrl: String(obj['mediaUrl'] ?? ''),
+  };
+}
+
 export const lessonService = {
   async getAll(): Promise<Lesson[]> {
     const response = await httpClient.get<unknown>('/lessons');
     const data = (response as { data?: unknown }).data ?? response;
     return Array.isArray(data) ? data.map((l) => normalizeLesson(l)) : [];
+  },
+  async getAllContents(id: number): Promise<LessonContent[]> {
+    const response = await httpClient.get<unknown>(`/lessons/${id}/contents`);
+    const data = (response as { data?: unknown }).data ?? response;
+    return Array.isArray(data) ? data.map((l) => normalizeLessonContent(l)) : [];
   },
 
   async getById(id: number): Promise<Lesson> {
@@ -66,6 +89,7 @@ export const lessonService = {
     const data = (response as { data?: unknown }).data ?? response;
     return normalizeLesson(data);
   },
+  
 
   async getByCourseId(courseId: number): Promise<Lesson[]> {
     const response = await httpClient.get<unknown>(`/lessons/course/${courseId}`);

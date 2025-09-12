@@ -31,7 +31,7 @@ interface RefreshResponse {
 
 interface JwtPayload {
   sub: string;
-  role: string; // You can narrow this to: 'ROLE_ADMIN' | 'ROLE_USER' | 'ROLE_PROCTOR'
+  role: string; //  'ROLE_ADMIN' | 'ROLE_USER' | 'ROLE_PROCTOR'
 }
 
 // Get API base URL from environment variables

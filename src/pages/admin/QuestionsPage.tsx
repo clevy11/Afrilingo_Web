@@ -10,6 +10,7 @@ import { useSearchAndFilter } from '@/hooks/useSearchAndFilter';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { questionService, Question } from '@/services/questionService';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function QuestionsPage() {
   const { toast } = useToast();
@@ -25,27 +26,25 @@ export default function QuestionsPage() {
     handleSearch,
   } = useSearchAndFilter();
 
+  const [page, setPage] = useState(0);
+  const [size, setSize] = useState(12);
+
   const { data: questionsData, isLoading, error } = useQuery({
-    queryKey: ['questions'],
-    queryFn: questionService.getAll,
+    queryKey: ['questions', page, size],
+    queryFn: () => questionService.getPaginated(page, size),
   });
 
   console.log('Raw questions data:', questionsData);
   console.log('Type of questionsData:', typeof questionsData);
   console.log('Is array:', Array.isArray(questionsData));
 
-  // Ensure we always have an array to work with
-  let allQuestions: Question[] = [];
-  if (Array.isArray(questionsData)) {
-    allQuestions = questionsData;
-  } else if (
-    questionsData &&
-    typeof questionsData === 'object' &&
-    'content' in questionsData &&
-    Array.isArray((questionsData as any).content)
-  ) {
-    allQuestions = (questionsData as any).content;
-  }
+  // Current page items
+  const allQuestions: Question[] = Array.isArray((questionsData as any)?.content)
+    ? ((questionsData as any).content as Question[])
+    : Array.isArray(questionsData)
+      ? (questionsData as Question[])
+      : [];
+  const totalPages = Number((questionsData as any)?.totalPages ?? 1);
 
   // Filter questions based on search query and filters
   const filteredQuestions = allQuestions.filter((question: Question) => {
@@ -274,6 +273,46 @@ export default function QuestionsPage() {
             >
               <HelpCircle className="h-4 w-4 mr-2" />
               Create Question
+            </Button>
+          </div>
+        )}
+
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center gap-2 pt-2">
+            <Button
+              variant="outline"
+              className="border-amber-300 text-amber-700 hover:bg-amber-100"
+              disabled={page === 0}
+              onClick={() => setPage((p) => Math.max(0, p - 1))}
+            >
+              Prev
+            </Button>
+            <div className="flex items-center gap-1">
+              {Array.from({ length: totalPages }).slice(Math.max(0, page - 2), Math.min(totalPages, page + 3)).map((_, idx) => {
+                const start = Math.max(0, page - 2);
+                const pageNum = start + idx;
+                if (pageNum >= totalPages) return null;
+                const isActive = pageNum === page;
+                return (
+                  <Button
+                    key={pageNum}
+                    variant={isActive ? 'default' : 'outline'}
+                    className={isActive ? 'bg-amber-600 text-white' : 'border-amber-300 text-amber-700 hover:bg-amber-100'}
+                    onClick={() => setPage(pageNum)}
+                  >
+                    {pageNum + 1}
+                  </Button>
+                );
+              })}
+            </div>
+            <Button
+              variant="outline"
+              className="border-amber-300 text-amber-700 hover:bg-amber-100"
+              disabled={page >= totalPages - 1}
+              onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
+            >
+              Next
             </Button>
           </div>
         )}

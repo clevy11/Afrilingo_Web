@@ -17,6 +17,20 @@ export interface LessonContentResponse {
   mediaUrl: string;
 }
 
+export interface Page<T> {
+  content: T[];
+  pageable?: unknown;
+  totalPages: number;
+  totalElements: number;
+  last: boolean;
+  size: number;
+  number: number;
+  sort?: unknown;
+  numberOfElements: number;
+  first: boolean;
+  empty: boolean;
+}
+
 export interface Lesson {
   id: number;
   title: string;
@@ -73,10 +87,42 @@ function normalizeLessonContent(raw: unknown): LessonContent {
 }
 
 export const lessonService = {
+  async getAllPaginated(params?: { page?: number; size?: number; sort?: string[] }): Promise<Page<Lesson>> {
+    const page = params?.page ?? 0;
+    const size = params?.size ?? 20;
+    const sortParams = params?.sort ?? [];
+    const qs = new URLSearchParams();
+    qs.set('page', String(page));
+    qs.set('size', String(size));
+    for (const s of sortParams) qs.append('sort', s);
+    const response = await httpClient.get<unknown>(`/lessons/paginated?${qs.toString()}`);
+    const data = (response as { data?: any }).data ?? response;
+    const contentRaw = Array.isArray((data as any)?.content) ? (data as any).content : [];
+    const normalized = contentRaw.map((l: unknown) => normalizeLesson(l));
+    return {
+      content: normalized,
+      pageable: (data as any)?.pageable,
+      totalPages: Number((data as any)?.totalPages ?? 1),
+      totalElements: Number((data as any)?.totalElements ?? normalized.length),
+      last: Boolean((data as any)?.last ?? true),
+      size: Number((data as any)?.size ?? size),
+      number: Number((data as any)?.number ?? page),
+      sort: (data as any)?.sort,
+      numberOfElements: Number((data as any)?.numberOfElements ?? normalized.length),
+      first: Boolean((data as any)?.first ?? page === 0),
+      empty: Boolean((data as any)?.empty ?? normalized.length === 0),
+    } as Page<Lesson>;
+  },
   async getAll(): Promise<Lesson[]> {
-    const response = await httpClient.get<unknown>('/lessons');
+    const response = await httpClient.get<unknown>('/lessons/paginated');
     const data = (response as { data?: unknown }).data ?? response;
-    return Array.isArray(data) ? data.map((l) => normalizeLesson(l)) : [];
+    // Support both paginated shape { content: [...] } and plain array [...]
+    const items = Array.isArray((data as any)?.content)
+      ? (data as any).content
+      : Array.isArray(data)
+        ? (data as any)
+        : [];
+    return items.map((l: unknown) => normalizeLesson(l));
   },
   async getAllContents(id: number): Promise<LessonContent[]> {
     const response = await httpClient.get<unknown>(`/lessons/${id}/contents`);

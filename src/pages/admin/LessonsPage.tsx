@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AdminLayout } from '@/components/admin/AdminLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -27,10 +27,16 @@ export default function LessonsPage() {
     handleSearch,
   } = useSearchAndFilter();
 
-  const { data: allLessons = [], isLoading, error } = useQuery({
-    queryKey: ['lessons'],
-    queryFn: lessonService.getAll,
+  const [page, setPage] = useState(0);
+  const [size, setSize] = useState(12);
+
+  const { data: pageData, isLoading, error } = useQuery({
+    queryKey: ['lessons', page, size],
+    queryFn: () => lessonService.getAllPaginated({ page, size }),
   });
+
+  const allLessons: Lesson[] = pageData?.content ?? [];
+  const totalPages = pageData?.totalPages ?? 1;
 
   // Filter lessons based on search query and filters
   const filteredLessons = allLessons.filter((lesson: Lesson) => {
@@ -269,6 +275,47 @@ export default function LessonsPage() {
                 Create Lesson
               </Button>
             )}
+          </div>
+        )}
+
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center gap-2 pt-2">
+            <Button
+              variant="outline"
+              className="border-amber-300 text-amber-700 hover:bg-amber-100"
+              disabled={page === 0}
+              onClick={() => setPage((p) => Math.max(0, p - 1))}
+            >
+              Prev
+            </Button>
+            <div className="flex items-center gap-1">
+              {Array.from({ length: totalPages }).slice(Math.max(0, page - 2), Math.min(totalPages, page + 3)).map((_, idx) => {
+                // Render a small window of page numbers around current page
+                const start = Math.max(0, page - 2);
+                const pageNum = start + idx;
+                if (pageNum >= totalPages) return null;
+                const isActive = pageNum === page;
+                return (
+                  <Button
+                    key={pageNum}
+                    variant={isActive ? 'default' : 'outline'}
+                    className={isActive ? 'bg-amber-600 text-white' : 'border-amber-300 text-amber-700 hover:bg-amber-100'}
+                    onClick={() => setPage(pageNum)}
+                  >
+                    {pageNum + 1}
+                  </Button>
+                );
+              })}
+            </div>
+            <Button
+              variant="outline"
+              className="border-amber-300 text-amber-700 hover:bg-amber-100"
+              disabled={page >= totalPages - 1}
+              onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
+            >
+              Next
+            </Button>
           </div>
         )}
       </div>

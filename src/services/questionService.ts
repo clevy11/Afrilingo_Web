@@ -63,15 +63,16 @@ export const questionService = {
 
   async getPaginated(page: number = 0, size: number = 20, sort?: string[]): Promise<PaginatedResponse<Question>> {
     const params = new URLSearchParams({
-      'pageable.page': page.toString(),
-      'pageable.size': size.toString(),
+      page: page.toString(),
+      size: size.toString(),
     });
-    
     if (sort) {
-      sort.forEach(s => params.append('pageable.sort', s));
+      sort.forEach((s) => params.append('sort', s));
     }
-    
-    return await httpClient.get<PaginatedResponse<Question>>(`/questions/paginated?${params}`);
+    const response = await httpClient.get<unknown>(`/questions/paginated?${params.toString()}`);
+    const data = (response as { data?: unknown }).data ?? response;
+    const pageData = (data as PaginatedResponse<Question>) || ({} as PaginatedResponse<Question>);
+    return pageData;
   },
 
   async search(keyword: string): Promise<Question[]> {

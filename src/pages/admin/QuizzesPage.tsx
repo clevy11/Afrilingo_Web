@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { AdminLayout } from '@/components/admin/AdminLayout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -26,9 +25,12 @@ export default function QuizzesPage() {
     handleSearch,
   } = useSearchAndFilter();
 
+  const [page, setPage] = useState(0);
+  const [size, setSize] = useState(12);
+
   const { data: quizzesData, isLoading, error } = useQuery({
-    queryKey: ['quizzes'],
-    queryFn: quizService.getAll,
+    queryKey: ['quizzes', page, size],
+    queryFn: () => quizService.getPaginated({ page, size }),
   });
 
   // Debug logging and ensure we have an array
@@ -36,8 +38,13 @@ export default function QuizzesPage() {
   console.log('Type of quizzesData:', typeof quizzesData);
   console.log('Is array:', Array.isArray(quizzesData));
 
-  // Ensure we always have an array to work with
-  const allQuizzes = Array.isArray(quizzesData) ? quizzesData : [];
+  // Current page items
+  const allQuizzes: Quiz[] = Array.isArray((quizzesData as any)?.content)
+    ? ((quizzesData as any).content as Quiz[])
+    : Array.isArray(quizzesData)
+      ? (quizzesData as Quiz[])
+      : [];
+  const totalPages = Number((quizzesData as any)?.totalPages ?? 1);
 
   // Filter quizzes based on search query and filters
   const filteredQuizzes = allQuizzes.filter((quiz: Quiz) => {
@@ -245,6 +252,46 @@ export default function QuizzesPage() {
             >
               <List className="h-4 w-4 mr-2" />
               Create Quiz
+            </Button>
+          </div>
+        )}
+
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center gap-2 pt-2">
+            <Button
+              variant="outline"
+              className="border-amber-300 text-amber-700 hover:bg-amber-100"
+              disabled={page === 0}
+              onClick={() => setPage((p) => Math.max(0, p - 1))}
+            >
+              Prev
+            </Button>
+            <div className="flex items-center gap-1">
+              {Array.from({ length: totalPages }).slice(Math.max(0, page - 2), Math.min(totalPages, page + 3)).map((_, idx) => {
+                const start = Math.max(0, page - 2);
+                const pageNum = start + idx;
+                if (pageNum >= totalPages) return null;
+                const isActive = pageNum === page;
+                return (
+                  <Button
+                    key={pageNum}
+                    variant={isActive ? 'default' : 'outline'}
+                    className={isActive ? 'bg-amber-600 text-white' : 'border-amber-300 text-amber-700 hover:bg-amber-100'}
+                    onClick={() => setPage(pageNum)}
+                  >
+                    {pageNum + 1}
+                  </Button>
+                );
+              })}
+            </div>
+            <Button
+              variant="outline"
+              className="border-amber-300 text-amber-700 hover:bg-amber-100"
+              disabled={page >= totalPages - 1}
+              onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
+            >
+              Next
             </Button>
           </div>
         )}

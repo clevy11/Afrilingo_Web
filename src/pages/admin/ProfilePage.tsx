@@ -11,8 +11,7 @@ const ProfilePage = () => {
   const [stats, setStats] = React.useState([
     { label: "Courses Created", value: '-', icon: BookOpen, color: "from-blue-500 to-blue-600" },
     { label: "Total Students", value: '-', icon: User, color: "from-green-500 to-green-600" },
-    { label: "Quizzes Created", value: '-', icon: Trophy, color: "from-purple-500 to-purple-600" },
-    { label: "Success Rate", value: '-', icon: Target, color: "from-orange-500 to-orange-600" }
+    { label: "Quizzes Created", value: '-', icon: Trophy, color: "from-purple-500 to-purple-600" }
   ]);
 
   React.useEffect(() => {
@@ -32,20 +31,18 @@ const ProfilePage = () => {
         } catch {
           studentsCount = '-';
         }
-        // Success Rate (mock or replace with real API if available)
+        // Success Rate (mock or replace with real API if available) 
         const successRate = '-';
         setStats([
           { label: "Courses Created", value: Array.isArray(courses) ? courses.length.toString() : '-', icon: BookOpen, color: "from-blue-500 to-blue-600" },
           { label: "Total Students", value: studentsCount, icon: User, color: "from-green-500 to-green-600" },
-          { label: "Quizzes Created", value: Array.isArray(quizzes) ? quizzes.length.toString() : '-', icon: Trophy, color: "from-purple-500 to-purple-600" },
-          { label: "Success Rate", value: successRate, icon: Target, color: "from-orange-500 to-orange-600" }
+          { label: "Quizzes Created", value: Array.isArray(quizzes) ? quizzes.length.toString() : '-', icon: Trophy, color: "from-purple-500 to-purple-600" }
         ]);
       } catch {
         setStats([
           { label: "Courses Created", value: 'Error', icon: BookOpen, color: "from-blue-500 to-blue-600" },
           { label: "Total Students", value: 'Error', icon: User, color: "from-green-500 to-green-600" },
-          { label: "Quizzes Created", value: 'Error', icon: Trophy, color: "from-purple-500 to-purple-600" },
-          { label: "Success Rate", value: 'Error', icon: Target, color: "from-orange-500 to-orange-600" }
+          { label: "Quizzes Created", value: 'Error', icon: Trophy, color: "from-purple-500 to-purple-600" }
         ]);
       }
     }
@@ -94,28 +91,7 @@ const ProfilePage = () => {
               ))}
             </div>
 
-            {/* Recent Activity
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-amber-900">
-                  <Calendar className="h-5 w-5" />
-                  Recent Activity
-                </CardTitle>
-                <CardDescription>Your latest actions on the platform</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {recentActivity.map((activity, index) => (
-                    <div key={index} className="flex items-center justify-between py-3 border-b border-amber-100 last:border-0">
-                      <p className="text-amber-800">{activity.action}</p>
-                      <Badge variant="outline" className="text-amber-600">{activity.date}</Badge>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card> */}
-
-            {/* Learning Progress */}
+            
             
           </div>
         </div>

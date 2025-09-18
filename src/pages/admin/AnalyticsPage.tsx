@@ -8,13 +8,13 @@ import { quizService } from '@/services/quizService';
 import { searchService } from '@/services/searchService';
 import { lessonService, type Lesson } from '@/services/lessonService';
 import type { Course } from '@/services/courseService';
-import type { BackendUserDto } from '@/services/userService';
+import { userService, type BackendUserDto } from '@/services/userService';
 
 export default function AnalyticsPage() {
 
   const [analyticsData, setAnalyticsData] = useState([
     {
-      title: "Total Users",
+      title: "Total Learners",
       value: "-",
       change: "",
       icon: Users,
@@ -43,9 +43,10 @@ export default function AnalyticsPage() {
         // Total Users (learners)
         let usersCount = '-';
         try {
-          const usersRes = await searchService.searchUsers({ page: 0, size: 1000 });
-          const users = (usersRes.content || []) as BackendUserDto[];
-          usersCount = users.filter((u: BackendUserDto) => u.role === 'ROLE_USER').length.toString();
+          const users: BackendUserDto[] = await userService.getAll();
+          usersCount = Array.isArray(users)
+            ? users.filter((u: BackendUserDto) => u.role === 'ROLE_USER').length.toString()
+            : '-';
         } catch {
           usersCount = '-';
         }

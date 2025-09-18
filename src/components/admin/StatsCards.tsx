@@ -24,9 +24,9 @@ const initialStats = [
     color: "bg-green-100 text-green-800"
   },
   {
-    title: "Users",
+    title: "Total Users",
     value: "-",
-    description: "All learners registered",
+    description: "All users registered",
     icon: User,
     color: "bg-blue-100 text-blue-800"
   },

@@ -34,7 +34,7 @@ export function DashboardHome() {
             <div className="flex items-center gap-3 mb-4">
               <div className="text-2xl">🇷🇼</div>
               <div>
-                <h3 className="text-lg font-semibold text-amber-900">Currently Learning: Kinyarwanda</h3>
+                <h3 className="text-lg font-semibold text-amber-900">Currently Role: {userRole}</h3>
                 <p className="text-sm text-amber-700">Rwanda's beautiful native language</p>
               </div>
             </div>
@@ -53,7 +53,7 @@ export function DashboardHome() {
             </div>
           </div>
           
-          {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <div className="bg-white/60 backdrop-blur-sm rounded-xl p-4 border border-amber-200/50">
               <div className="text-2xl mb-2">🚀</div>
               <div className="text-sm font-medium text-amber-800 mb-1">Platform Status</div>
@@ -69,7 +69,7 @@ export function DashboardHome() {
               <div className="text-sm font-medium text-amber-800 mb-1">Global Reach</div>
               <div className="text-xs text-amber-600">Rwanda & diaspora communities</div>
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
       

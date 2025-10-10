@@ -38,7 +38,7 @@ const comingSoonLanguages = [
 
 const CourseSection = () => {
   return (
-    <section id="courses" className="py-20 bg-white">
+    <section id="courses" className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-amber-900 mb-4">
@@ -53,7 +53,7 @@ const CourseSection = () => {
         <div className="mb-16">
           <h3 className="text-2xl font-bold text-amber-900 mb-8 text-center">Available Now</h3>
           <div className="flex justify-center">
-            <Card className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 border-amber-200 shadow-lg max-w-md">
+            <Card className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 border-border shadow-lg max-w-md">
               <CardHeader className="p-0">
                 <div className="relative overflow-hidden rounded-t-lg h-48 bg-gradient-to-br from-red-100 via-yellow-100 to-green-100 flex items-center justify-center">
                   <img 
@@ -71,7 +71,7 @@ const CourseSection = () => {
               
               <CardContent className="p-6">
                 <div className="mb-2">
-                  <Badge variant="outline" className="text-xs border-amber-600 text-amber-700">
+                  <Badge variant="outline" className="text-xs border-border text-amber-700">
                     {mainCourse.level}
                   </Badge>
                 </div>
@@ -115,7 +115,7 @@ const CourseSection = () => {
               </CardContent>
 
               <CardFooter className="p-6 pt-0">
-                <Button className="w-full bg-amber-800 hover:bg-amber-900 text-white group">
+                <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground group">
                   Start Learning
                   <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>

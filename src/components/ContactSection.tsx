@@ -61,11 +61,11 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-20 bg-gradient-to-br from-amber-100 to-orange-100">
+    <section id="contact" className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-amber-900 mb-6">Contact Us</h2>
-          <p className="text-xl text-amber-800 max-w-3xl mx-auto">
+          <h2 className="text-4xl font-bold text-foreground mb-6">Contact Us</h2>
+          <p className="text-xl text-muted max-w-3xl mx-auto">
             Have questions about learning Kinyarwanda? Need support with our platform? 
             We're here to help you on your language learning journey.
           </p>
@@ -75,62 +75,62 @@ const ContactSection = () => {
           {/* Contact Information */}
           <div className="space-y-6">
             <Card 
-              className="border-amber-200 bg-white shadow-lg cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105"
+              className="border-border bg-card shadow-lg cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105"
               onClick={() => handleCardClick('email')}
             >
               <CardContent className="p-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 bg-amber-800 rounded-full flex items-center justify-center">
-                    <Mail className="h-5 w-5 text-amber-50" />
+                  <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                    <Mail className="h-5 w-5 text-primary-foreground" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-amber-900">Email Us</h3>
-                    <p className="text-amber-700 hover:text-amber-900 transition-colors">afrilingoedtech@gmail.com</p>
+                    <h3 className="font-semibold text-foreground">Email Us</h3>
+                    <p className="text-muted hover:text-foreground transition-colors">afrilingoedtech@gmail.com</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             <Card 
-              className="border-amber-200 bg-white shadow-lg cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105"
+              className="border-border bg-card shadow-lg cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105"
               onClick={() => handleCardClick('phone')}
             >
               <CardContent className="p-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 bg-amber-800 rounded-full flex items-center justify-center">
-                    <Phone className="h-5 w-5 text-amber-50" />
+                  <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                    <Phone className="h-5 w-5 text-primary-foreground" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-amber-900">Call Us</h3>
-                    <p className="text-amber-700 hover:text-amber-900 transition-colors">+250 788 123 456</p>
+                    <h3 className="font-semibold text-foreground">Call Us</h3>
+                    <p className="text-muted hover:text-foreground transition-colors">+250 788 123 456</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-amber-200 bg-white shadow-lg">
+            <Card className="border-border bg-card shadow-lg">
               <CardContent className="p-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 bg-amber-800 rounded-full flex items-center justify-center">
-                    <MapPin className="h-5 w-5 text-amber-50" />
+                  <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                    <MapPin className="h-5 w-5 text-primary-foreground" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-amber-900">Visit Us</h3>
-                    <p className="text-amber-700">Kigali, Rwanda</p>
+                    <h3 className="font-semibold text-foreground">Visit Us</h3>
+                    <p className="text-muted">Kigali, Rwanda</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-amber-200 bg-white shadow-lg">
+            <Card className="border-border bg-card shadow-lg">
               <CardContent className="p-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 bg-amber-800 rounded-full flex items-center justify-center">
-                    <Clock className="h-5 w-5 text-amber-50" />
+                  <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                    <Clock className="h-5 w-5 text-primary-foreground" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-amber-900">Support Hours</h3>
-                    <p className="text-amber-700">Mon-Fri: 8AM-6PM EAT</p>
+                    <h3 className="font-semibold text-foreground">Support Hours</h3>
+                    <p className="text-muted">Mon-Fri: 8AM-6PM EAT</p>
                   </div>
                 </div>
               </CardContent>
@@ -139,15 +139,15 @@ const ContactSection = () => {
 
           {/* Contact Form */}
           <div className="lg:col-span-2">
-            <Card className="border-amber-200 bg-white shadow-lg">
+            <Card className="border-border bg-card shadow-lg">
               <CardHeader>
-                <CardTitle className="text-2xl text-amber-900">Send us a Message</CardTitle>
+                <CardTitle className="text-2xl text-foreground">Send us a Message</CardTitle>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="name" className="text-amber-900">Full Name</Label>
+                      <Label htmlFor="name" className="text-foreground">Full Name</Label>
                       <Input
                         id="name"
                         name="name"
@@ -155,12 +155,12 @@ const ContactSection = () => {
                         required
                         value={formData.name}
                         onChange={handleChange}
-                        className="border-amber-300 focus:border-amber-500"
+                        className="border-border focus:border-primary focus:ring-primary"
                         placeholder="Your full name"
                       />
                     </div>
                     <div>
-                      <Label htmlFor="email" className="text-amber-900">Email Address</Label>
+                      <Label htmlFor="email" className="text-foreground">Email Address</Label>
                       <Input
                         id="email"
                         name="email"
@@ -168,21 +168,21 @@ const ContactSection = () => {
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        className="border-amber-300 focus:border-amber-500"
+                        className="border-border focus:border-primary focus:ring-primary"
                         placeholder="your.email@example.com"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <Label htmlFor="learnerType" className="text-amber-900">I am a...</Label>
+                    <Label htmlFor="learnerType" className="text-foreground">I am a...</Label>
                     <select
                       id="learnerType"
                       name="learnerType"
                       required
                       value={formData.learnerType}
                       onChange={handleChange}
-                      className="w-full h-10 px-3 py-2 border border-amber-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                      className="w-full h-10 px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                     >
                       <option value="">Select your situation</option>
                       <option value="foreigner-rwanda">Foreigner living in Rwanda</option>
@@ -196,7 +196,7 @@ const ContactSection = () => {
                   </div>
 
                   <div>
-                    <Label htmlFor="subject" className="text-amber-900">Subject</Label>
+                    <Label htmlFor="subject" className="text-foreground">Subject</Label>
                     <Input
                       id="subject"
                       name="subject"
@@ -204,13 +204,13 @@ const ContactSection = () => {
                       required
                       value={formData.subject}
                       onChange={handleChange}
-                      className="border-amber-300 focus:border-amber-500"
+                      className="border-border focus:border-primary focus:ring-primary"
                       placeholder="What can we help you with?"
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="message" className="text-amber-900">Message</Label>
+                    <Label htmlFor="message" className="text-foreground">Message</Label>
                     <Textarea
                       id="message"
                       name="message"
@@ -218,7 +218,7 @@ const ContactSection = () => {
                       value={formData.message}
                       onChange={handleChange}
                       rows={6}
-                      className="border-amber-300 focus:border-amber-500"
+                      className="border-border focus:border-primary focus:ring-primary"
                       placeholder="Tell us about your language learning goals, questions, or how we can help you..."
                     />
                   </div>
@@ -226,7 +226,7 @@ const ContactSection = () => {
                   <Button 
                     type="submit" 
                     disabled={isSubmitting}
-                    className="w-full bg-amber-800 hover:bg-amber-900 text-amber-50 py-3 text-lg transition-all duration-300 hover:scale-105"
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3 text-lg transition-all duration-300 hover:scale-105"
                   >
                     <Send className="h-5 w-5 mr-2" />
                     {isSubmitting ? 'Sending...' : 'Send Message'}

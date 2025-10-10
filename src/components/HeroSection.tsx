@@ -21,7 +21,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100 py-20">
+  <section className="bg-gradient-to-br from-background/80 via-background/80 to-background/80 py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
@@ -103,10 +103,10 @@ const HeroSection = () => {
 
           <div className="relative">
             <div className="relative z-10">
-              <Card className="p-6 bg-white shadow-2xl border-0">
+              <Card className="p-6 bg-card shadow-2xl border-0">
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md">
+                    <div className="w-12 h-12 rounded-full bg-card flex items-center justify-center shadow-md">
                       <img 
                         src="/lovable-uploads/11afa540-f243-4c5a-93e4-f75f0daebf89.png" 
                         alt="Afrilingo Logo" 

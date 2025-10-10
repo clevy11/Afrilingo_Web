@@ -68,7 +68,7 @@ const MobileAppPrompt = ({ isOpen, onClose }: MobileAppPromptProps) => {
             <Button 
               size="lg" 
               onClick={handleAndroidDownload}
-              className="bg-white hover:bg-gray-100 text-amber-800 w-full"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground w-full"
             >
               <Play className="h-5 w-5 mr-2" />
               Download for Android

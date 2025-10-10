@@ -31,7 +31,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="bg-amber-50/95 backdrop-blur-sm shadow-sm border-b border-amber-200 fixed top-0 left-0 right-0 z-50">
+  <header className="bg-background/95 backdrop-blur-sm shadow-sm border-b border-border fixed top-0 left-0 right-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center space-x-3">
@@ -46,7 +46,7 @@ const Header = () => {
             <nav className="hidden md:flex items-center space-x-8">
               <button 
                 onClick={() => scrollToSection('courses')}
-                className="text-amber-700 hover:text-amber-900 font-medium transition-colors px-3 py-2 rounded-md hover:bg-amber-100"
+                className="text-amber-700 hover:text-amber-900 font-medium transition-colors px-3 py-2 rounded-md hover:bg-card/95"
               >
                 Courses
               </button>
@@ -72,12 +72,12 @@ const Header = () => {
 
             <div className="hidden md:flex items-center space-x-4">
               <AuthDialog onSuccess={handleAuthSuccess}>
-                <Button variant="outline" className="border-amber-600 text-amber-700 hover:bg-amber-100 transition-all duration-300">
+                <Button variant="outline" className="border-border text-amber-700 hover:bg-card/95 transition-all duration-300">
                   Sign In
                 </Button>
               </AuthDialog>
               <AuthDialog onSuccess={handleAuthSuccess}>
-                <Button className="bg-amber-800 hover:bg-amber-900 text-amber-50 transition-all duration-300 hover:scale-105">
+                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-300 hover:scale-105">
                   Get Started
                 </Button>
               </AuthDialog>
@@ -92,11 +92,11 @@ const Header = () => {
           </div>
 
           {isMenuOpen && (
-            <div className="md:hidden py-4 border-t border-amber-200 bg-amber-50/95 backdrop-blur-sm">
+            <div className="md:hidden py-4 border-t border-border bg-background/95 backdrop-blur-sm">
               <div className="flex flex-col space-y-2">
                 <button 
                   onClick={() => scrollToSection('courses')}
-                  className="text-amber-700 hover:text-amber-900 font-medium text-left px-3 py-2 rounded-md hover:bg-amber-100 transition-colors"
+                  className="text-amber-700 hover:text-amber-900 font-medium text-left px-3 py-2 rounded-md hover:bg-card/95 transition-colors"
                 >
                   Courses
                 </button>
@@ -118,14 +118,14 @@ const Header = () => {
                 >
                   Contact
                 </button>
-                <div className="flex flex-col space-y-2 pt-4 border-t border-amber-200">
+                <div className="flex flex-col space-y-2 pt-4 border-t border-border">
                   <AuthDialog onSuccess={handleAuthSuccess}>
-                    <Button variant="outline" className="border-amber-600 text-amber-700 w-full">
+                    <Button variant="outline" className="border-border text-amber-700 w-full">
                       Sign In
                     </Button>
                   </AuthDialog>
                   <AuthDialog onSuccess={handleAuthSuccess}>
-                    <Button className="bg-amber-800 hover:bg-amber-900 text-amber-50 w-full">
+                    <Button className="bg-primary hover:bg-primary/90 text-primary-foreground w-full">
                       Get Started
                     </Button>
                   </AuthDialog>

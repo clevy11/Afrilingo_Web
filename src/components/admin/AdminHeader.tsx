@@ -54,7 +54,7 @@ export function AdminHeader() {
   };
 
   return (
-    <header className="bg-white/80 backdrop-blur-sm border-b border-amber-200 px-4 sm:px-6 py-4 sticky top-0 z-40">
+    <header className="bg-card/80 backdrop-blur-sm border-b border-border px-4 sm:px-6 py-4 sticky top-0 z-40">
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <SidebarTrigger className="text-amber-800 hover:text-amber-900 hover:bg-amber-100 transition-colors" />
@@ -69,7 +69,7 @@ export function AdminHeader() {
               placeholder="Search courses, quizzes..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 w-64 lg:w-80 border-amber-300 focus:border-amber-500 bg-white/70"
+              className="pl-10 w-64 lg:w-80 border-border focus:border-primary bg-card/70"
             />
           </form>
           
@@ -77,7 +77,7 @@ export function AdminHeader() {
           <Button 
             variant="outline" 
             size="icon" 
-            className="sm:hidden border-amber-300 text-amber-700 hover:bg-amber-100"
+            className="sm:hidden border-border text-amber-700 hover:bg-card/95"
             onClick={() => toast({ title: "Search", description: "Mobile search coming soon!" })}
           >
             <Search className="h-4 w-4" />
@@ -87,7 +87,7 @@ export function AdminHeader() {
           <Button 
             variant="outline" 
             size="icon" 
-            className="border-amber-300 text-amber-700 hover:bg-amber-100 relative"
+            className="border-border text-amber-700 hover:bg-card/95 relative"
             onClick={handleNotificationClick}
           >
             <Bell className="h-4 w-4" />
@@ -98,7 +98,7 @@ export function AdminHeader() {
           <Button 
             variant="outline" 
             size="icon" 
-            className="border-amber-300 text-amber-700 hover:bg-amber-100"
+            className="border-border text-amber-700 hover:bg-card/95"
             onClick={handleSettingsClick}
           >
             <Settings className="h-4 w-4" />
@@ -106,16 +106,16 @@ export function AdminHeader() {
           
           {/* User Dropdown */}
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
+              <DropdownMenuTrigger asChild>
               <Button 
                 variant="outline" 
                 size="icon" 
-                className="border-amber-300 text-amber-700 hover:bg-amber-100"
+                className="border-border text-amber-700 hover:bg-card/95"
               >
                 <User className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56 bg-white border-amber-200 z-50">
+            <DropdownMenuContent align="end" className="w-56 bg-card border-border z-50">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleProfileClick}>

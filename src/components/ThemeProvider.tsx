@@ -1,7 +1,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-type Theme = 'dark' | 'light' | 'system';
+type Theme = 'dark' | 'light' | 'system' | string;
 
 type ThemeProviderProps = {
   children: React.ReactNode;
@@ -34,8 +34,15 @@ export function ThemeProvider({
   useEffect(() => {
     const root = window.document.documentElement;
 
+    // Remove explicit light/dark first
     root.classList.remove('light', 'dark');
 
+    // Remove any previous custom theme-* classes
+    Array.from(root.classList)
+      .filter((c) => c.startsWith('theme-'))
+      .forEach((c) => root.classList.remove(c));
+
+    // If theme is system, map to actual system preference
     if (theme === 'system') {
       const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
         .matches
@@ -43,17 +50,34 @@ export function ThemeProvider({
         : 'light';
 
       root.classList.add(systemTheme);
+
+      // clear inline variables in case a custom theme previously set them
+      ['--background', '--foreground', '--card', '--card-foreground', '--border', '--input'].forEach((v) =>
+        root.style.removeProperty(v)
+      );
+
       return;
     }
 
+    // If theme is a built-in (light/dark), apply it and clear custom CSS variables
+    if (theme === 'light' || theme === 'dark') {
+      root.classList.add(theme);
+      ['--background', '--foreground', '--card', '--card-foreground', '--border', '--input'].forEach((v) =>
+        root.style.removeProperty(v)
+      );
+      return;
+    }
+
+    // Otherwise treat it as a custom theme class name (e.g., 'theme-brown')
     root.classList.add(theme);
+    // We don't remove inline variables here because custom themes may rely on them
   }, [theme]);
 
   const value = {
     theme,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme);
-      setTheme(theme);
+    setTheme: (t: Theme) => {
+      localStorage.setItem(storageKey, t);
+      setTheme(t);
     },
   };
 
@@ -67,8 +91,7 @@ export function ThemeProvider({
 export const useTheme = () => {
   const context = useContext(ThemeProviderContext);
 
-  if (context === undefined)
-    throw new Error('useTheme must be used within a ThemeProvider');
+  if (context === undefined) throw new Error('useTheme must be used within a ThemeProvider');
 
   return context;
 };

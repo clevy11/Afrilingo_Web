@@ -21,6 +21,26 @@
   </head>
 
   <body>
+    <script>
+      // Immediately apply theme class to avoid flash of wrong theme.
+      (function () {
+        try {
+          var key = 'vite-ui-theme';
+          var theme = localStorage.getItem(key);
+          var root = document.documentElement;
+          if (theme === 'dark') {
+            root.classList.add('dark');
+          } else if (theme === 'light') {
+            root.classList.remove('dark');
+          } else if (theme === 'system' || theme === null) {
+            var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (prefersDark) root.classList.add('dark');
+          }
+        } catch (e) {
+          // ignore (e.g., localStorage not available)
+        }
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

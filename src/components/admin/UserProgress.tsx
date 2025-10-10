@@ -49,7 +49,7 @@ const recentAchievements = [
 
 export function UserProgress() {
   return (
-    <Card className="border-amber-200 shadow-lg bg-gradient-to-br from-white to-amber-50/30">
+    <Card className="border-border shadow-lg bg-card">
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between">
           <CardTitle className="text-amber-900 flex items-center gap-3 text-xl">
@@ -58,8 +58,8 @@ export function UserProgress() {
             </div>
             User Progress
           </CardTitle>
-          <Link to="/admin/analytics">
-            <Button variant="outline" size="sm" className="border-amber-300 text-amber-700 hover:bg-amber-100">
+            <Link to="/admin/analytics">
+            <Button variant="outline" size="sm" className="border-border text-amber-700 hover:bg-card/95">
               Detailed View
             </Button>
           </Link>
@@ -68,15 +68,15 @@ export function UserProgress() {
       <CardContent className="space-y-6">
         {/* Progress Metrics */}
         <div className="grid grid-cols-2 gap-3">
-          {progressData.map((item) => (
-            <div key={item.metric} className="p-3 rounded-lg bg-white/80 border border-gray-200 hover:border-amber-300 transition-colors">
+            {progressData.map((item) => (
+            <div key={item.metric} className="p-3 rounded-lg bg-card/80 border border-border hover:border-primary transition-colors">
               <div className="flex items-center gap-2 mb-2">
                 <div className={`p-1 rounded ${item.bgColor}`}>
                   <item.icon className={`h-4 w-4 ${item.color}`} />
                 </div>
               </div>
               <div className="text-lg font-bold text-gray-900">{item.value}</div>
-              <div className="text-xs text-gray-600 mb-1">{item.metric}</div>
+              <div className="text-xs text-muted mb-1">{item.metric}</div>
               <div className="text-xs text-green-600 font-medium">{item.change}</div>
             </div>
           ))}
@@ -90,11 +90,11 @@ export function UserProgress() {
           </h4>
           <div className="space-y-3">
             {recentAchievements.map((achievement, index) => (
-              <div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-white/60 border border-gray-200">
+              <div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-card/60 border border-border">
                 <div className="text-lg">{achievement.flag}</div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm font-medium text-gray-900">{achievement.user}</div>
-                  <div className="text-xs text-gray-600 truncate">{achievement.achievement}</div>
+                  <div className="text-sm font-medium text-foreground">{achievement.user}</div>
+                  <div className="text-xs text-muted truncate">{achievement.achievement}</div>
                 </div>
                 <div className="text-xs text-gray-500">{achievement.time}</div>
               </div>

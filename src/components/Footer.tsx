@@ -4,10 +4,10 @@ import { Mail, MapPin, Phone, Facebook, Twitter, Instagram, Youtube } from 'luci
 const Footer = () => {
   const handleSocialClick = (platform: string) => {
     const urls = {
-      facebook: 'https://facebook.com/afrilingo',
-      twitter: 'https://twitter.com/afrilingo',
-      instagram: 'https://instagram.com/afrilingo',
-      youtube: 'https://youtube.com/afrilingo'
+      facebook: 'https://facebook.com/Gabalang',
+      twitter: 'https://twitter.com/Gabalang',
+      instagram: 'https://instagram.com/Gabalang',
+      youtube: 'https://youtube.com/Gabalang'
     };
     
     window.open(urls[platform as keyof typeof urls], '_blank');
@@ -15,7 +15,7 @@ const Footer = () => {
 
   const handleContactClick = (type: 'email' | 'phone') => {
     if (type === 'email') {
-      window.location.href = 'mailto:afrilingoedtech@gmail.com';
+      window.location.href = 'mailto:Gabalangedtech@gmail.com';
     } else if (type === 'phone') {
       window.location.href = 'tel:+250788123456';
     }
@@ -29,10 +29,10 @@ const Footer = () => {
             <div className="flex items-center space-x-3">
               <img 
                 src="/lovable-uploads/11afa540-f243-4c5a-93e4-f75f0daebf89.png" 
-                alt="Afrilingo Logo" 
+                alt="Gabalang Logo" 
                 className="h-10 w-10 rounded-full object-cover"
               />
-              <span className="text-2xl font-bold">Afrilingo</span>
+              <span className="text-2xl font-bold">Gabalang</span>
             </div>
             <p className="text-white leading-relaxed">
               Connecting people to African cultures through authentic language learning experiences.
@@ -105,7 +105,7 @@ const Footer = () => {
                 className="flex items-center gap-2 text-sm text-gray-400 hover:text-orange-500 transition-colors group"
               >
                 <Mail className="h-4 w-4 group-hover:scale-110 transition-transform" />
-                <span>afrilingoedtech@gmail.com</span>
+                <span>Gabalangedtech@gmail.com</span>
               </button>
               <button 
                 onClick={() => handleContactClick('phone')}
@@ -121,7 +121,7 @@ const Footer = () => {
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm">
-              © 2024 Afrilingo. All rights reserved.
+              © 2024 Gabalang. All rights reserved.
             </p>
             <div className="flex items-center gap-6 text-sm text-gray-400">
               <a href="#" className="hover:text-orange-500 transition-colors">Privacy</a>

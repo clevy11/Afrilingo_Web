@@ -24,7 +24,7 @@ export function DashboardHome() {
             <div className="flex-1 min-w-0">
               <h2 className="text-2xl sm:text-3xl font-bold text-amber-900 mb-2">Muraho</h2>
               <p className="text-amber-700 text-base sm:text-lg">
-                Welcome to Afrilingo - {isAdmin ? 'Administrative Dashboard' : 'Content Management Hub'}
+                Welcome to Gabalang - {isAdmin ? 'Administrative Dashboard' : 'Content Management Hub'}
               </p>
             </div>
           </div>

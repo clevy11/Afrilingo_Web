@@ -6,10 +6,10 @@ import { Card } from '@/components/ui/card';
 const HeroSection = () => {
   const handleSocialClick = (platform: string) => {
     const urls = {
-      facebook: 'https://facebook.com/afrilingo',
-      twitter: 'https://twitter.com/afrilingo',
-      instagram: 'https://instagram.com/afrilingo',
-      youtube: 'https://youtube.com/afrilingo'
+      facebook: 'https://facebook.com/Gabalang',
+      twitter: 'https://twitter.com/Gabalang',
+      instagram: 'https://instagram.com/Gabalang',
+      youtube: 'https://youtube.com/Gabalang'
     };
     
     window.open(urls[platform as keyof typeof urls], '_blank');
@@ -27,7 +27,7 @@ const HeroSection = () => {
           <div className="space-y-8">
             <div className="space-y-4">
               <h1 className="text-4xl md:text-6xl font-bold text-amber-900 leading-tight">
-                Learn <span className="text-amber-900">African</span> Languages with <span className="text-amber-900">Afrilingo</span>
+                Learn <span className="text-amber-900">African</span> Languages with <span className="text-amber-900">Gabalang</span>
               </h1>
               <p className="text-xl text-amber-800 leading-relaxed">
                 Discover the rich diversity of African languages through interactive lessons, cultural insights, and native speaker guidance.
@@ -109,7 +109,7 @@ const HeroSection = () => {
                     <div className="w-12 h-12 rounded-full bg-card flex items-center justify-center shadow-md">
                       <img 
                         src="/lovable-uploads/11afa540-f243-4c5a-93e4-f75f0daebf89.png" 
-                        alt="Afrilingo Logo" 
+                        alt="Gabalang Logo" 
                         className="h-10 w-10 rounded-full object-cover"
                       />
                     </div>

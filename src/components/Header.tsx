@@ -37,10 +37,10 @@ const Header = () => {
             <div className="flex items-center space-x-3">
               <img 
                 src="/lovable-uploads/11afa540-f243-4c5a-93e4-f75f0daebf89.png" 
-                alt="Afrilingo Logo" 
+                alt="Gabalang Logo" 
                 className="h-10 w-10 rounded-full object-cover shadow-md"
               />
-              <span className="text-2xl font-bold text-amber-900">Afrilingo</span>
+              <span className="text-2xl font-bold text-amber-900">Gabalang</span>
             </div>
             
             <nav className="hidden md:flex items-center space-x-8">

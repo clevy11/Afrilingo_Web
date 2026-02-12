@@ -32,24 +32,23 @@ const activities = [
 
 export function RecentActivity() {
   return (
-    <Card className="border-amber-200">
+    <Card className="border-amber-200 dark:border-[hsl(220,12%,18%)]">
       <CardHeader>
-        <CardTitle className="text-amber-900">Recent Activity</CardTitle>
+        <CardTitle className="text-amber-900 dark:text-gray-100">Recent Activity</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
           {activities.map((activity, index) => (
-            <div key={index} className="flex items-center justify-between py-2 border-b border-amber-100 last:border-b-0">
+            <div key={index} className="flex items-center justify-between py-2 border-b border-amber-100 dark:border-white/10 last:border-b-0">
               <div>
-                <p className="text-sm font-medium text-amber-900">{activity.action}</p>
-                <p className="text-xs text-amber-600">{activity.time}</p>
+                <p className="text-sm font-medium text-amber-900 dark:text-gray-200">{activity.action}</p>
+                <p className="text-xs text-amber-600 dark:text-gray-400">{activity.time}</p>
               </div>
-              <div className={`w-2 h-2 rounded-full ${
-                activity.type === 'course' ? 'bg-amber-500' :
-                activity.type === 'quiz' ? 'bg-green-500' :
-                activity.type === 'challenge' ? 'bg-purple-500' :
-                'bg-blue-500'
-              }`} />
+              <div className={`w-2 h-2 rounded-full ${activity.type === 'course' ? 'bg-amber-500' :
+                  activity.type === 'quiz' ? 'bg-green-500' :
+                    activity.type === 'challenge' ? 'bg-purple-500' :
+                      'bg-blue-500'
+                }`} />
             </div>
           ))}
         </div>

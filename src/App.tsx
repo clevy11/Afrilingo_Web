@@ -7,6 +7,7 @@ import { useState } from "react";
 import { AuthProvider } from "@/contexts/AuthContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { RoleProtectedRoute } from "@/components/auth/RoleProtectedRoute";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import Index from "./pages/Index";
 import AdminDashboard from "./pages/AdminDashboard";
 import CoursesPage from "./pages/admin/CoursesPage";
@@ -54,167 +55,169 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <AuthProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/admin" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_ADMIN', 'ROLE_PROCTOR']}>
-                  <AdminDashboard />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/languages" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR', 'ROLE_ADMIN']}>
-                  <LanguagesPage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/languages/new" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
-                  <CreateLanguagePage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/languages/:id/edit" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
-                  <EditLanguagePage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/languages/:id/view" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
-                  <ViewLanguagePage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/courses" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_ADMIN', 'ROLE_PROCTOR']}>
-                  <CoursesPage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/courses/new" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
-                  <CreateCoursePage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/courses/:id/edit" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
-                  <EditCoursePage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/courses/:id/view" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_ADMIN', 'ROLE_PROCTOR']}>
-                  <ViewCoursePage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/lessons" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_ADMIN', 'ROLE_PROCTOR']}>
-                  <LessonsPage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/lessons/new" element={
-                <RoleProtectedRoute allowedRoles={[ 'ROLE_PROCTOR']}>
-                  <CreateLessonPage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/lessons/:id/edit" element={
-                <RoleProtectedRoute allowedRoles={[ 'ROLE_PROCTOR']}>
-                  <EditLessonPage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/lessons/:id/view" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_ADMIN', 'ROLE_PROCTOR']}>
-                  <ViewLessonPage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/questions" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
-                  <QuestionsPage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/questions/new" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
-                  <CreateQuestionPage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/questions/:id/edit" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
-                  <EditQuestionPage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/questions/:id/view" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
-                  <ViewQuestionPage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/quizzes" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
-                  <QuizzesPage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/quizzes/new" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
-                  <CreateQuizPage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/quizzes/:id/view" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
-                  <ViewQuizPage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/quizzes/:id/edit" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
-                  <EditQuizPage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/challenges" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
-                  <ChallengesPage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/challenges/new" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
-                  <CreateChallengePage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/analytics" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_ADMIN']}>
-                  <AnalyticsPage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/profile" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_ADMIN', 'ROLE_PROCTOR']}>
-                  <ProfilePage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/settings" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_ADMIN']}>
-                  <SettingsPage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/notifications" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_ADMIN']}>
-                  <NotificationsPage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/certificates" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_ADMIN']}>
-                  <CertificatesPage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/proctor-events" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_ADMIN']}>
-                  <ProctorEventsPage />
-                </RoleProtectedRoute>
-              } />
-              <Route path="/admin/users" element={
-                <RoleProtectedRoute allowedRoles={['ROLE_ADMIN']}>
-                  <UsersPage />
-                </RoleProtectedRoute>
-              } />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
-        </AuthProvider>
+        <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+          <AuthProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/admin" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_ADMIN', 'ROLE_PROCTOR']}>
+                    <AdminDashboard />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/languages" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR', 'ROLE_ADMIN']}>
+                    <LanguagesPage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/languages/new" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
+                    <CreateLanguagePage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/languages/:id/edit" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
+                    <EditLanguagePage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/languages/:id/view" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
+                    <ViewLanguagePage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/courses" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_ADMIN', 'ROLE_PROCTOR']}>
+                    <CoursesPage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/courses/new" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
+                    <CreateCoursePage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/courses/:id/edit" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
+                    <EditCoursePage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/courses/:id/view" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_ADMIN', 'ROLE_PROCTOR']}>
+                    <ViewCoursePage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/lessons" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_ADMIN', 'ROLE_PROCTOR']}>
+                    <LessonsPage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/lessons/new" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
+                    <CreateLessonPage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/lessons/:id/edit" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
+                    <EditLessonPage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/lessons/:id/view" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_ADMIN', 'ROLE_PROCTOR']}>
+                    <ViewLessonPage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/questions" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
+                    <QuestionsPage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/questions/new" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
+                    <CreateQuestionPage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/questions/:id/edit" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
+                    <EditQuestionPage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/questions/:id/view" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
+                    <ViewQuestionPage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/quizzes" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
+                    <QuizzesPage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/quizzes/new" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
+                    <CreateQuizPage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/quizzes/:id/view" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
+                    <ViewQuizPage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/quizzes/:id/edit" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
+                    <EditQuizPage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/challenges" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
+                    <ChallengesPage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/challenges/new" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_PROCTOR']}>
+                    <CreateChallengePage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/analytics" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_ADMIN']}>
+                    <AnalyticsPage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/profile" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_ADMIN', 'ROLE_PROCTOR']}>
+                    <ProfilePage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/settings" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_ADMIN']}>
+                    <SettingsPage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/notifications" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_ADMIN']}>
+                    <NotificationsPage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/certificates" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_ADMIN']}>
+                    <CertificatesPage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/proctor-events" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_ADMIN']}>
+                    <ProctorEventsPage />
+                  </RoleProtectedRoute>
+                } />
+                <Route path="/admin/users" element={
+                  <RoleProtectedRoute allowedRoles={['ROLE_ADMIN']}>
+                    <UsersPage />
+                  </RoleProtectedRoute>
+                } />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+          </AuthProvider>
+        </ThemeProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );

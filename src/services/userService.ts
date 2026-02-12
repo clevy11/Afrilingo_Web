@@ -1,5 +1,16 @@
 import { httpClient } from '@/utils/httpClient';
 
+export interface UserProfile {
+  id: number;
+  country: string | null;
+  firstLanguage: string | null;
+  profilePicture: string | null;
+  reasonToLearn: string | null;
+  dailyReminders: boolean;
+  dailyGoalMinutes: number;
+  preferredLearningTime: string | null;
+}
+
 export interface BackendUserDto {
   id: number;
   firstName: string;
@@ -7,6 +18,7 @@ export interface BackendUserDto {
   email: string;
   role: 'ROLE_USER' | 'ROLE_ADMIN' | 'ROLE_PROCTOR' | string;
   enabled: boolean;
+  profile: UserProfile | null;
 }
 
 export interface CreateUserRequest {

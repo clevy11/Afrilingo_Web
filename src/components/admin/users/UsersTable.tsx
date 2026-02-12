@@ -3,7 +3,7 @@ import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { MoreHorizontal, Mail, Shield, Calendar } from 'lucide-react';
+import { MoreHorizontal, Mail, Shield, Globe, MessageSquare } from 'lucide-react';
 import {
   Table,
   TableBody,
@@ -27,10 +27,11 @@ interface User {
   email: string;
   role: string;
   status: string;
-  joinDate: string;
-  coursesEnrolled: number;
-  completionRate: number;
+  country: string;
+  firstLanguage: string;
+  reasonToLearn: string;
   avatar: string;
+  profilePicture?: string | null;
 }
 
 interface UsersTableProps {
@@ -41,12 +42,12 @@ interface UsersTableProps {
 export function UsersTable({ users, onUserAction }: UsersTableProps) {
   const getRoleBadge = (role: string) => {
     const roleColors = {
-      Student: "bg-blue-100 text-blue-800",
-      Instructor: "bg-purple-100 text-purple-800", 
-      Moderator: "bg-orange-100 text-orange-800",
-      Admin: "bg-red-100 text-red-800"
+      Student: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400",
+      Instructor: "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400",
+      Moderator: "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400",
+      Admin: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400"
     };
-    
+
     return (
       <Badge className={`${roleColors[role as keyof typeof roleColors]} hover:${roleColors[role as keyof typeof roleColors]}`}>
         {role}
@@ -57,7 +58,7 @@ export function UsersTable({ users, onUserAction }: UsersTableProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-amber-900">All Users ({users.length})</CardTitle>
+        <CardTitle className="text-amber-900 dark:text-gray-100">All Users ({users.length})</CardTitle>
         <CardDescription>Manage your Kinyarwanda learning community</CardDescription>
       </CardHeader>
       <CardContent>
@@ -66,9 +67,9 @@ export function UsersTable({ users, onUserAction }: UsersTableProps) {
             <TableRow>
               <TableHead>User</TableHead>
               <TableHead>Role</TableHead>
-              <TableHead>Courses</TableHead>
-              <TableHead>Completion</TableHead>
-              <TableHead>Join Date</TableHead>
+              <TableHead>Country</TableHead>
+              <TableHead>First Language</TableHead>
+              <TableHead className="max-w-[200px]">Reason to Learn</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -77,36 +78,36 @@ export function UsersTable({ users, onUserAction }: UsersTableProps) {
               <TableRow key={user.id}>
                 <TableCell className="font-medium">
                   <div className="flex items-center space-x-3">
-                    <div className="text-2xl">{user.avatar}</div>
+                    <div className="h-9 w-9 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center overflow-hidden shrink-0">
+                      {user.profilePicture && user.profilePicture !== '👤' ? (
+                        <img src={user.profilePicture} alt={user.name} className="h-full w-full object-cover rounded-full" />
+                      ) : (
+                        <span className="text-lg">👤</span>
+                      )}
+                    </div>
                     <div>
-                      <div className="font-medium text-amber-900">{user.name}</div>
-                      <div className="text-sm text-amber-600">{user.email}</div>
+                      <div className="font-medium text-amber-900 dark:text-gray-100">{user.name}</div>
+                      <div className="text-sm text-amber-600 dark:text-gray-400">{user.email}</div>
                     </div>
                   </div>
                 </TableCell>
                 <TableCell>{getRoleBadge(user.role)}</TableCell>
                 <TableCell>
-                  <div className="flex items-center space-x-1">
-                    <span className="font-medium">{user.coursesEnrolled}</span>
-                    <span className="text-amber-600 text-sm">courses</span>
+                  <div className="flex items-center space-x-1.5">
+                    <Globe className="h-3.5 w-3.5 text-amber-500 dark:text-amber-400" />
+                    <span className="text-sm text-amber-800 dark:text-gray-300">{user.country}</span>
                   </div>
                 </TableCell>
                 <TableCell>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-12 h-2 bg-amber-200 rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-gradient-to-r from-amber-500 to-orange-500"
-                        style={{ width: `${user.completionRate}%` }}
-                      />
-                    </div>
-                    <span className="text-sm font-medium">{user.completionRate}%</span>
+                  <div className="flex items-center space-x-1.5">
+                    <MessageSquare className="h-3.5 w-3.5 text-blue-500" />
+                    <span className="text-sm text-amber-800 dark:text-gray-300">{user.firstLanguage}</span>
                   </div>
                 </TableCell>
-                <TableCell>
-                  <div className="flex items-center space-x-1 text-amber-700">
-                    <Calendar className="h-3 w-3" />
-                    <span className="text-sm">{user.joinDate}</span>
-                  </div>
+                <TableCell className="max-w-[200px]">
+                  <span className="text-sm text-amber-700 dark:text-gray-400 line-clamp-2" title={user.reasonToLearn}>
+                    {user.reasonToLearn}
+                  </span>
                 </TableCell>
                 <TableCell className="text-right">
                   <DropdownMenu>
@@ -130,14 +131,14 @@ export function UsersTable({ users, onUserAction }: UsersTableProps) {
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
                       {user.status === 'Inactive' ? (
-                        <DropdownMenuItem 
+                        <DropdownMenuItem
                           onClick={() => onUserAction('Activate', user)}
                           className="text-green-700"
                         >
                           Activate User
                         </DropdownMenuItem>
                       ) : (
-                        <DropdownMenuItem 
+                        <DropdownMenuItem
                           onClick={() => onUserAction('Suspend', user)}
                           className="text-red-600"
                         >

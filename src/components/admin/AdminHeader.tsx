@@ -57,60 +57,60 @@ export function AdminHeader() {
     <header className="bg-card/80 backdrop-blur-sm border-b border-border px-4 sm:px-6 py-4 sticky top-0 z-40">
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-4">
-          <SidebarTrigger className="text-amber-800 hover:text-amber-900 hover:bg-amber-100 transition-colors" />
-          <h1 className="text-xl sm:text-2xl font-bold text-amber-900">Dashboard</h1>
+          <SidebarTrigger className="text-amber-800 dark:text-gray-300 hover:text-amber-900 dark:hover:text-white hover:bg-amber-100 dark:hover:bg-white/10 transition-colors" />
+          <h1 className="text-xl sm:text-2xl font-bold text-amber-900 dark:text-gray-100">Dashboard</h1>
         </div>
-        
+
         <div className="flex items-center gap-2 sm:gap-4">
           {/* Search */}
           <form onSubmit={handleSearch} className="relative hidden sm:block">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-amber-600" />
-            <Input 
-              placeholder="Search courses, quizzes..." 
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-amber-600 dark:text-gray-400" />
+            <Input
+              placeholder="Search courses, quizzes..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 w-64 lg:w-80 border-border focus:border-primary bg-card/70"
+              className="pl-10 w-64 lg:w-80 border-border focus:border-primary bg-card/70 dark:bg-white/5 dark:placeholder:text-gray-500"
             />
           </form>
-          
+
           {/* Mobile search button */}
-          <Button 
-            variant="outline" 
-            size="icon" 
-            className="sm:hidden border-border text-amber-700 hover:bg-card/95"
+          <Button
+            variant="outline"
+            size="icon"
+            className="sm:hidden border-border text-amber-700 dark:text-gray-300 hover:bg-card/95 dark:hover:bg-white/10"
             onClick={() => toast({ title: "Search", description: "Mobile search coming soon!" })}
           >
             <Search className="h-4 w-4" />
           </Button>
 
           {/* Notifications */}
-          <Button 
-            variant="outline" 
-            size="icon" 
-            className="border-border text-amber-700 hover:bg-card/95 relative"
+          <Button
+            variant="outline"
+            size="icon"
+            className="border-border text-amber-700 dark:text-gray-300 hover:bg-card/95 dark:hover:bg-white/10 relative"
             onClick={handleNotificationClick}
           >
             <Bell className="h-4 w-4" />
             <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
           </Button>
-          
+
           {/* Settings */}
-          <Button 
-            variant="outline" 
-            size="icon" 
-            className="border-border text-amber-700 hover:bg-card/95"
+          <Button
+            variant="outline"
+            size="icon"
+            className="border-border text-amber-700 dark:text-gray-300 hover:bg-card/95 dark:hover:bg-white/10"
             onClick={handleSettingsClick}
           >
             <Settings className="h-4 w-4" />
           </Button>
-          
+
           {/* User Dropdown */}
           <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-              <Button 
-                variant="outline" 
-                size="icon" 
-                className="border-border text-amber-700 hover:bg-card/95"
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                size="icon"
+                className="border-border text-amber-700 dark:text-gray-300 hover:bg-card/95 dark:hover:bg-white/10"
               >
                 <User className="h-4 w-4" />
               </Button>

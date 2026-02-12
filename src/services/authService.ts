@@ -55,8 +55,15 @@ export const authService = {
     });
 
     if (!response.ok) {
-      const error = await response.text();
-      throw new Error(error || 'Registration failed');
+      const errorText = await response.text();
+      let errorMessage = 'Registration failed';
+      try {
+        const errorJson = JSON.parse(errorText);
+        errorMessage = errorJson.message || errorJson.error || errorMessage;
+      } catch {
+        errorMessage = errorText || errorMessage;
+      }
+      throw new Error(errorMessage);
     }
   },
 
@@ -70,12 +77,19 @@ export const authService = {
     });
 
     if (!response.ok) {
-      const error = await response.text();
-      throw new Error(error || 'Authentication failed');
+      const errorText = await response.text();
+      let errorMessage = 'Authentication failed';
+      try {
+        const errorJson = JSON.parse(errorText);
+        errorMessage = errorJson.message || errorJson.error || errorMessage;
+      } catch {
+        errorMessage = errorText || errorMessage;
+      }
+      throw new Error(errorMessage);
     }
 
     const authData: AuthResponse = await response.json();
-    
+
     if (authData.user.role !== 'ROLE_ADMIN' && authData.user.role !== 'ROLE_PROCTOR') {
       throw new Error('Access denied: only admins and proctors are allowed to log in.');
     }

@@ -18,11 +18,11 @@ const mainCourse = {
 };
 
 const courseFeatures = [
-  { icon: BookOpen, name: "Vocabulary", color: "text-amber-700" },
-  { icon: MessageCircle, name: "Grammar", color: "text-orange-700" },
-  { icon: Volume2, name: "Greetings", color: "text-yellow-700" },
-  { icon: ArrowRight, name: "Translation", color: "text-red-700" },
-  { icon: Gamepad2, name: "Games", color: "text-purple-700" }
+  { icon: BookOpen, name: "Vocabulary", color: "text-amber-700 dark:text-amber-400" },
+  { icon: MessageCircle, name: "Grammar", color: "text-orange-700 dark:text-orange-400" },
+  { icon: Volume2, name: "Greetings", color: "text-yellow-700 dark:text-yellow-400" },
+  { icon: ArrowRight, name: "Translation", color: "text-red-700 dark:text-red-400" },
+  { icon: Gamepad2, name: "Games", color: "text-purple-700 dark:text-purple-400" }
 ];
 
 const comingSoonLanguages = [
@@ -41,22 +41,22 @@ const CourseSection = () => {
     <section id="courses" className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-amber-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-amber-900 dark:text-gray-100 mb-4">
             Explore African Languages
           </h2>
-          <p className="text-xl text-amber-700 max-w-3xl mx-auto">
+          <p className="text-xl text-amber-700 dark:text-gray-400 max-w-3xl mx-auto">
             Start your journey with Kinyarwanda, with more African languages coming soon to immerse you in the culture and communication.
           </p>
         </div>
 
         {/* Main Kinyarwanda Course */}
         <div className="mb-16">
-          <h3 className="text-2xl font-bold text-amber-900 mb-8 text-center">Available Now</h3>
+          <h3 className="text-2xl font-bold text-amber-900 dark:text-gray-100 mb-8 text-center">Available Now</h3>
           <div className="flex justify-center">
             <Card className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 border-border shadow-lg max-w-md">
               <CardHeader className="p-0">
                 <div className="relative overflow-hidden rounded-t-lg h-48 bg-gradient-to-br from-red-100 via-yellow-100 to-green-100 flex items-center justify-center">
-                  <img 
+                  <img
                     src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400&h=400&fit=crop&crop=center"
                     alt="Rwanda Flag"
                     className="w-32 h-20 object-cover rounded-lg shadow-lg"
@@ -68,35 +68,35 @@ const CourseSection = () => {
                   </div>
                 </div>
               </CardHeader>
-              
+
               <CardContent className="p-6">
                 <div className="mb-2">
-                  <Badge variant="outline" className="text-xs border-border text-amber-700">
+                  <Badge variant="outline" className="text-xs border-border text-amber-700 dark:text-amber-400 dark:border-amber-400/30">
                     {mainCourse.level}
                   </Badge>
                 </div>
-                
-                <h3 className="text-xl font-bold text-amber-900 mb-2">{mainCourse.title}</h3>
-                <p className="text-amber-700 text-sm mb-4">{mainCourse.description}</p>
-                
-                <div className="text-xs text-amber-600 mb-4">
+
+                <h3 className="text-xl font-bold text-amber-900 dark:text-gray-100 mb-2">{mainCourse.title}</h3>
+                <p className="text-amber-700 dark:text-gray-400 text-sm mb-4">{mainCourse.description}</p>
+
+                <div className="text-xs text-amber-600 dark:text-gray-500 mb-4">
                   Spoken in: {mainCourse.country}
                 </div>
 
                 {/* Course Features */}
                 <div className="mb-4">
-                  <h4 className="text-sm font-semibold text-amber-900 mb-2">What you'll learn:</h4>
+                  <h4 className="text-sm font-semibold text-amber-900 dark:text-gray-100 mb-2">What you'll learn:</h4>
                   <div className="grid grid-cols-2 gap-2">
                     {courseFeatures.map((feature, index) => (
                       <div key={index} className="flex items-center gap-2">
                         <feature.icon className={`h-3 w-3 ${feature.color}`} />
-                        <span className="text-xs text-amber-700">{feature.name}</span>
+                        <span className="text-xs text-amber-700 dark:text-gray-400">{feature.name}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between text-sm text-amber-600 mb-4">
+                <div className="flex items-center justify-between text-sm text-amber-600 dark:text-gray-400 mb-4">
                   <div className="flex items-center gap-1">
                     <Clock className="h-4 w-4" />
                     <span>{mainCourse.duration}</span>
@@ -109,8 +109,8 @@ const CourseSection = () => {
 
                 <div className="flex items-center gap-1 mb-4">
                   <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  <span className="text-sm font-medium">{mainCourse.rating}</span>
-                  <span className="text-sm text-amber-600">rating</span>
+                  <span className="text-sm font-medium dark:text-gray-200">{mainCourse.rating}</span>
+                  <span className="text-sm text-amber-600 dark:text-gray-400">rating</span>
                 </div>
               </CardContent>
 
@@ -126,14 +126,14 @@ const CourseSection = () => {
 
         {/* Coming Soon Languages */}
         <div>
-          <h3 className="text-2xl font-bold text-amber-900 mb-8 text-center">Coming Soon</h3>
+          <h3 className="text-2xl font-bold text-amber-900 dark:text-gray-100 mb-8 text-center">Coming Soon</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {comingSoonLanguages.map((language, index) => (
-              <Card key={index} className="p-4 text-center border-2 border-dashed border-amber-300 bg-amber-50">
+              <Card key={index} className="p-4 text-center border-2 border-dashed border-amber-300 dark:border-amber-900/30 bg-amber-50 dark:bg-amber-900/10">
                 <div className="text-3xl mb-2">{language.flag}</div>
-                <h4 className="font-semibold text-amber-800 mb-1">{language.name}</h4>
-                <p className="text-xs text-amber-600">{language.countries}</p>
-                <Badge variant="secondary" className="mt-2 text-xs bg-amber-200 text-amber-800">
+                <h4 className="font-semibold text-amber-800 dark:text-gray-200 mb-1">{language.name}</h4>
+                <p className="text-xs text-amber-600 dark:text-gray-400">{language.countries}</p>
+                <Badge variant="secondary" className="mt-2 text-xs bg-amber-200 dark:bg-amber-900/50 text-amber-800 dark:text-amber-200">
                   Coming Soon
                 </Badge>
               </Card>
@@ -142,10 +142,10 @@ const CourseSection = () => {
         </div>
 
         <div className="text-center mt-12">
-          <p className="text-amber-700 mb-4">
+          <p className="text-amber-700 dark:text-gray-400 mb-4">
             Be the first to know when new languages are available!
           </p>
-          <Button variant="outline" size="lg" className="border-amber-600 text-amber-700 hover:bg-amber-50">
+          <Button variant="outline" size="lg" className="border-amber-600 dark:border-amber-400 text-amber-700 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/20">
             Join Waitlist
           </Button>
         </div>

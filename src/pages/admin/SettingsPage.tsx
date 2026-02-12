@@ -31,8 +31,8 @@ const SettingsPage = () => {
     <AdminLayout>
       <div className="space-y-8">
         <div className="flex items-center gap-3">
-          <Settings className="h-8 w-8 text-amber-800" />
-          <h1 className="text-3xl font-bold text-amber-900">Settings</h1>
+          <Settings className="h-8 w-8 text-amber-800 dark:text-amber-400" />
+          <h1 className="text-3xl font-bold text-amber-900 dark:text-gray-100">Settings</h1>
         </div>
 
         <Tabs defaultValue="profile" className="space-y-6">
@@ -88,7 +88,7 @@ const SettingsPage = () => {
                   <Label htmlFor="bio">Bio</Label>
                   <Input id="bio" placeholder="Tell us about yourself..." />
                 </div>
-                <Button onClick={() => handleSave('Profile')} className="bg-amber-800 hover:bg-amber-900">
+                <Button onClick={() => handleSave('Profile')} className="bg-amber-800 hover:bg-amber-900 dark:bg-amber-600 dark:hover:bg-amber-700 text-white">
                   Save Changes
                 </Button>
               </CardContent>
@@ -107,9 +107,9 @@ const SettingsPage = () => {
                     <Label>Email Notifications</Label>
                     <p className="text-sm text-muted-foreground">Receive notifications via email</p>
                   </div>
-                  <Switch 
+                  <Switch
                     checked={notifications.email}
-                    onCheckedChange={(checked) => setNotifications({...notifications, email: checked})}
+                    onCheckedChange={(checked) => setNotifications({ ...notifications, email: checked })}
                   />
                 </div>
                 <div className="flex items-center justify-between">
@@ -117,9 +117,9 @@ const SettingsPage = () => {
                     <Label>Push Notifications</Label>
                     <p className="text-sm text-muted-foreground">Receive push notifications in browser</p>
                   </div>
-                  <Switch 
+                  <Switch
                     checked={notifications.push}
-                    onCheckedChange={(checked) => setNotifications({...notifications, push: checked})}
+                    onCheckedChange={(checked) => setNotifications({ ...notifications, push: checked })}
                   />
                 </div>
                 <div className="flex items-center justify-between">
@@ -127,9 +127,9 @@ const SettingsPage = () => {
                     <Label>Weekly Summary</Label>
                     <p className="text-sm text-muted-foreground">Get weekly platform activity summary</p>
                   </div>
-                  <Switch 
+                  <Switch
                     checked={notifications.weekly}
-                    onCheckedChange={(checked) => setNotifications({...notifications, weekly: checked})}
+                    onCheckedChange={(checked) => setNotifications({ ...notifications, weekly: checked })}
                   />
                 </div>
                 <div className="flex items-center justify-between">
@@ -137,12 +137,12 @@ const SettingsPage = () => {
                     <Label>Marketing Updates</Label>
                     <p className="text-sm text-muted-foreground">Receive updates about new features</p>
                   </div>
-                  <Switch 
+                  <Switch
                     checked={notifications.marketing}
-                    onCheckedChange={(checked) => setNotifications({...notifications, marketing: checked})}
+                    onCheckedChange={(checked) => setNotifications({ ...notifications, marketing: checked })}
                   />
                 </div>
-                <Button onClick={() => handleSave('Notification')} className="bg-amber-800 hover:bg-amber-900">
+                <Button onClick={() => handleSave('Notification')} className="bg-amber-800 hover:bg-amber-900 dark:bg-amber-600 dark:hover:bg-amber-700 text-white">
                   Save Preferences
                 </Button>
               </CardContent>
@@ -173,11 +173,11 @@ const SettingsPage = () => {
                     <Label>Two-Factor Authentication</Label>
                     <p className="text-sm text-muted-foreground">Add an extra layer of security</p>
                   </div>
-                  <Button variant="outline" className="border-amber-300 text-amber-700 hover:bg-amber-100">
+                  <Button variant="outline" className="border-amber-300 dark:border-amber-700/40 text-amber-700 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/20">
                     Enable 2FA
                   </Button>
                 </div>
-                <Button onClick={() => handleSave('Security')} className="bg-amber-800 hover:bg-amber-900">
+                <Button onClick={() => handleSave('Security')} className="bg-amber-800 hover:bg-amber-900 dark:bg-amber-600 dark:hover:bg-amber-700 text-white">
                   Update Security
                 </Button>
               </CardContent>
@@ -217,7 +217,7 @@ const SettingsPage = () => {
                     </SelectContent>
                   </Select>
                 </div>
-                <Button onClick={() => handleSave('Appearance')} className="bg-amber-800 hover:bg-amber-900">
+                <Button onClick={() => handleSave('Appearance')} className="bg-amber-800 hover:bg-amber-900 dark:bg-amber-600 dark:hover:bg-amber-700 text-white">
                   Save Appearance
                 </Button>
               </CardContent>
@@ -257,7 +257,7 @@ const SettingsPage = () => {
                     </SelectContent>
                   </Select>
                 </div>
-                <Button onClick={() => handleSave('General')} className="bg-amber-800 hover:bg-amber-900">
+                <Button onClick={() => handleSave('General')} className="bg-amber-800 hover:bg-amber-900 dark:bg-amber-600 dark:hover:bg-amber-700 text-white">
                   Save Settings
                 </Button>
               </CardContent>

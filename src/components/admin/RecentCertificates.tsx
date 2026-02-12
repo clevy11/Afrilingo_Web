@@ -26,9 +26,9 @@ export function RecentCertificates() {
   }, []);
 
   return (
-    <Card className="border-amber-200">
+    <Card className="border-amber-200 dark:border-[hsl(220,12%,18%)]">
       <CardHeader>
-        <CardTitle className="text-amber-900">Recent Certificates</CardTitle>
+        <CardTitle className="text-amber-900 dark:text-gray-100">Recent Certificates</CardTitle>
       </CardHeader>
       <CardContent>
         <Table>
@@ -51,7 +51,7 @@ export function RecentCertificates() {
             ))}
             {!loading && items.length === 0 && (
               <TableRow>
-                <TableCell colSpan={4} className="text-amber-700 text-center">No recent certificates</TableCell>
+                <TableCell colSpan={4} className="text-amber-700 dark:text-gray-400 text-center">No recent certificates</TableCell>
               </TableRow>
             )}
           </TableBody>

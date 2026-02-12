@@ -37,7 +37,7 @@ export function UserProfile() {
   return (
     <Card className="w-full max-w-md">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-amber-900">
+        <CardTitle className="flex items-center gap-2 text-amber-900 dark:text-gray-100">
           <User className="h-6 w-6" />
           Profile
         </CardTitle>
@@ -45,13 +45,13 @@ export function UserProfile() {
       <CardContent className="space-y-4">
         <div className="flex items-center gap-3">
           <div>
-            <div className="text-lg font-bold text-amber-900">{userData.firstname} {userData.lastname}</div>
-          
+            <div className="text-lg font-bold text-amber-900 dark:text-gray-100">{userData.firstname} {userData.lastname}</div>
+
           </div>
         </div>
         <div className="flex items-center gap-3 text-sm">
-          <Mail className="h-4 w-4 text-amber-600" />
-          <span className="text-amber-700">{userData.email}</span>
+          <Mail className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+          <span className="text-amber-700 dark:text-gray-300">{userData.email}</span>
         </div>
       </CardContent>
     </Card>

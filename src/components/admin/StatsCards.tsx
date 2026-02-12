@@ -14,28 +14,28 @@ const initialStats = [
     value: "-",
     description: "Active languages",
     icon: Book,
-    color: "bg-amber-100 text-amber-800"
+    color: "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400"
   },
   {
     title: "Courses",
     value: "-",
     description: "Published courses",
     icon: Book,
-    color: "bg-green-100 text-green-800"
+    color: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
   },
   {
     title: "Total Users",
     value: "-",
     description: "All users registered",
     icon: User,
-    color: "bg-blue-100 text-blue-800"
+    color: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400"
   },
   {
     title: "Total Quizzes",
     value: "-",
     description: "All quizzes created",
     icon: List,
-    color: "bg-purple-100 text-purple-800"
+    color: "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400"
   }
 ];
 
@@ -90,9 +90,9 @@ export function StatsCards() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {stats.map((stat) => (
-        <Card key={stat.title} className="border-amber-200">
+        <Card key={stat.title} className="border-amber-200 dark:border-[hsl(220,12%,18%)]">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-amber-900">
+            <CardTitle className="text-sm font-medium text-amber-900 dark:text-gray-200">
               {stat.title}
             </CardTitle>
             <div className={`w-8 h-8 rounded-full flex items-center justify-center ${stat.color}`}>
@@ -100,8 +100,8 @@ export function StatsCards() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-amber-900">{stat.value}</div>
-            <p className="text-xs text-amber-600">{stat.description}</p>
+            <div className="text-2xl font-bold text-amber-900 dark:text-gray-100">{stat.value}</div>
+            <p className="text-xs text-amber-600 dark:text-gray-400">{stat.description}</p>
           </CardContent>
         </Card>
       ))}

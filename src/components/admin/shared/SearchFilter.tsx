@@ -13,37 +13,37 @@ interface SearchFilterProps {
   placeholder?: string;
 }
 
-export function SearchFilter({ 
-  searchQuery, 
-  onSearchChange, 
-  onSearch, 
-  onFilter, 
-  placeholder = "Search..." 
+export function SearchFilter({
+  searchQuery,
+  onSearchChange,
+  onSearch,
+  onFilter,
+  placeholder = "Search..."
 }: SearchFilterProps) {
   return (
-    <Card className="border-amber-200">
+    <Card className="border-amber-200 dark:border-[hsl(220,12%,18%)]">
       <CardContent className="p-6">
         <form onSubmit={onSearch} className="flex gap-4">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-amber-600" />
-            <Input 
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-amber-600 dark:text-amber-400" />
+            <Input
               placeholder={placeholder}
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
-              className="pl-10 border-amber-300 focus:border-amber-500"
+              className="pl-10 border-amber-300 dark:border-white/10 dark:bg-white/5 focus:border-amber-500"
             />
           </div>
-          <Button 
+          <Button
             type="submit"
-            variant="outline" 
-            className="border-amber-300 text-amber-700 hover:bg-amber-100"
+            variant="outline"
+            className="border-amber-300 dark:border-white/10 text-amber-700 dark:text-gray-300 hover:bg-amber-100 dark:hover:bg-white/10"
           >
             Search
           </Button>
-          <Button 
+          <Button
             type="button"
-            variant="outline" 
-            className="border-amber-300 text-amber-700 hover:bg-amber-100"
+            variant="outline"
+            className="border-amber-300 dark:border-white/10 text-amber-700 dark:text-gray-300 hover:bg-amber-100 dark:hover:bg-white/10"
             onClick={onFilter}
           >
             <Filter className="h-4 w-4 mr-2" />

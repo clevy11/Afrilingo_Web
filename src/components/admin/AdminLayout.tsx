@@ -11,7 +11,7 @@ interface AdminLayoutProps {
 export function AdminLayout({ children }: AdminLayoutProps) {
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full bg-gradient-to-br from-amber-50 via-orange-50 to-red-50">
+      <div className="min-h-screen flex w-full bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 dark:from-[hsl(220,16%,8%)] dark:via-[hsl(220,14%,9%)] dark:to-[hsl(220,12%,10%)]">
         <AdminSidebar />
         <div className="flex-1 flex flex-col min-w-0 transition-all duration-300">
           <AdminHeader />

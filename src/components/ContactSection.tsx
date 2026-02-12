@@ -65,7 +65,7 @@ const ContactSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-foreground mb-6">Contact Us</h2>
-          <p className="text-xl text-muted max-w-3xl mx-auto">
+          <p className="text-xl text-amber-700 dark:text-gray-400 max-w-3xl mx-auto">
             Have questions about learning Kinyarwanda? Need support with our platform? 
             We're here to help you on your language learning journey.
           </p>
@@ -85,7 +85,7 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-foreground">Email Us</h3>
-                    <p className="text-muted hover:text-foreground transition-colors">Gabalangedtech@gmail.com</p>
+                    <p className="text-amber-700 dark:text-gray-400 hover:text-foreground transition-colors">Gabalangedtech@gmail.com</p>
                   </div>
                 </div>
               </CardContent>
@@ -102,7 +102,7 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-foreground">Call Us</h3>
-                    <p className="text-muted hover:text-foreground transition-colors">+250 788 123 456</p>
+                    <p className="text-amber-700 dark:text-gray-400 hover:text-foreground transition-colors">+250 788 123 456</p>
                   </div>
                 </div>
               </CardContent>
@@ -116,7 +116,7 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-foreground">Visit Us</h3>
-                    <p className="text-muted">Kigali, Rwanda</p>
+                    <p className="text-amber-700 dark:text-gray-400">Kigali, Rwanda</p>
                   </div>
                 </div>
               </CardContent>
@@ -130,7 +130,7 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-foreground">Support Hours</h3>
-                    <p className="text-muted">Mon-Fri: 8AM-6PM EAT</p>
+                    <p className="text-amber-700 dark:text-gray-400">Mon-Fri: 8AM-6PM EAT</p>
                   </div>
                 </div>
               </CardContent>

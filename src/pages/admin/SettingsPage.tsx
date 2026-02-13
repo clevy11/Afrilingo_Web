@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AdminLayout } from '@/components/admin/AdminLayout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -8,24 +8,137 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Settings, User, Bell, Shield, Palette, Globe } from 'lucide-react';
+import { Settings, User, Bell, Shield, Palette, Globe, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { adminService, type AdminSettings } from '@/services/adminService';
+import { profileService } from '@/services/profileService';
+import { useTheme } from '@/components/ThemeProvider';
 
 const SettingsPage = () => {
   const { toast } = useToast();
-  const [notifications, setNotifications] = useState({
-    email: true,
-    push: false,
-    weekly: true,
-    marketing: false
+  const { theme: currentTheme, setTheme: setThemeFromProvider } = useTheme();
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState<string | null>(null);
+  const [settings, setSettings] = useState<AdminSettings>({
+    profile: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      bio: '',
+    },
+    notifications: {
+      email: true,
+      push: false,
+      weekly: true,
+      marketing: false,
+    },
+    security: {
+      twoFactorEnabled: false,
+    },
+    appearance: {
+      theme: 'system',
+      dashboardLayout: 'default',
+    },
+    general: {
+      language: 'en',
+      timezone: 'africa/kigali',
+    },
   });
 
-  const handleSave = (section: string) => {
-    toast({
-      title: "Settings Saved",
-      description: `${section} settings have been updated successfully.`,
-    });
+  useEffect(() => {
+    async function loadSettings() {
+      try {
+        setLoading(true);
+        const loadedSettings = await adminService.getSettings();
+        
+        // Load from localStorage for client-side preferences
+        const storedNotifications = localStorage.getItem('admin_notification_preferences');
+        const storedSecurity = localStorage.getItem('admin_security_settings');
+        const storedAppearance = localStorage.getItem('admin_appearance_settings');
+        const storedGeneral = localStorage.getItem('admin_general_settings');
+        
+        // Sync theme from ThemeProvider
+        const themeFromProvider = currentTheme || 'system';
+        
+        setSettings({
+          ...loadedSettings,
+          appearance: {
+            ...loadedSettings.appearance,
+            theme: themeFromProvider as 'light' | 'dark' | 'system',
+          },
+          notifications: storedNotifications ? { ...loadedSettings.notifications, ...JSON.parse(storedNotifications) } : loadedSettings.notifications,
+          security: storedSecurity ? { ...loadedSettings.security, ...JSON.parse(storedSecurity) } : loadedSettings.security,
+          general: storedGeneral ? { ...loadedSettings.general, ...JSON.parse(storedGeneral) } : loadedSettings.general,
+        });
+      } catch (error) {
+        console.error('Failed to load settings:', error);
+        toast({
+          title: 'Error',
+          description: 'Failed to load settings. Please refresh the page.',
+          variant: 'destructive',
+        });
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadSettings();
+  }, [toast, currentTheme]);
+
+  const handleSave = async (section: string) => {
+    try {
+      setSaving(section);
+      
+      switch (section) {
+        case 'Profile':
+          await adminService.updateProfile(settings.profile);
+          break;
+        case 'Notification':
+          await adminService.updateNotifications(settings.notifications);
+          break;
+        case 'Security':
+          await adminService.updateSecurity(settings.security);
+          break;
+        case 'Appearance':
+          await adminService.updateAppearance(settings.appearance);
+          // Update theme using ThemeProvider
+          if (settings.appearance.theme) {
+            setThemeFromProvider(settings.appearance.theme);
+          }
+          break;
+        case 'General':
+          await adminService.updateGeneral(settings.general);
+          break;
+      }
+      
+      toast({
+        title: "Settings Saved",
+        description: `${section} settings have been updated successfully.`,
+      });
+    } catch (error) {
+      console.error(`Failed to save ${section} settings:`, error);
+      toast({
+        title: "Error",
+        description: `Failed to save ${section} settings. Please try again.`,
+        variant: 'destructive',
+      });
+    } finally {
+      setSaving(null);
+    }
   };
+
+  if (loading) {
+    return (
+      <AdminLayout>
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="flex flex-col items-center gap-4">
+            <Loader2 className="h-8 w-8 animate-spin text-amber-600" />
+            <p className="text-amber-600 dark:text-amber-400">Loading settings...</p>
+          </div>
+        </div>
+      </AdminLayout>
+    );
+  }
 
   return (
     <AdminLayout>
@@ -69,27 +182,75 @@ const SettingsPage = () => {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="firstName">First Name</Label>
-                    <Input id="firstName" defaultValue="Admin" />
+                    <Input 
+                      id="firstName" 
+                      value={settings.profile.firstName}
+                      onChange={(e) => setSettings({
+                        ...settings,
+                        profile: { ...settings.profile, firstName: e.target.value }
+                      })}
+                    />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="lastName">Last Name</Label>
-                    <Input id="lastName" defaultValue="User" />
+                    <Input 
+                      id="lastName" 
+                      value={settings.profile.lastName}
+                      onChange={(e) => setSettings({
+                        ...settings,
+                        profile: { ...settings.profile, lastName: e.target.value }
+                      })}
+                    />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" defaultValue="admin@Gabalang.com" />
+                  <Input 
+                    id="email" 
+                    type="email" 
+                    value={settings.profile.email}
+                    onChange={(e) => setSettings({
+                      ...settings,
+                      profile: { ...settings.profile, email: e.target.value }
+                    })}
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="phone">Phone</Label>
-                  <Input id="phone" defaultValue="+250 788 123 456" />
+                  <Input 
+                    id="phone" 
+                    value={settings.profile.phone || ''}
+                    onChange={(e) => setSettings({
+                      ...settings,
+                      profile: { ...settings.profile, phone: e.target.value }
+                    })}
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="bio">Bio</Label>
-                  <Input id="bio" placeholder="Tell us about yourself..." />
+                  <Input 
+                    id="bio" 
+                    placeholder="Tell us about yourself..."
+                    value={settings.profile.bio || ''}
+                    onChange={(e) => setSettings({
+                      ...settings,
+                      profile: { ...settings.profile, bio: e.target.value }
+                    })}
+                  />
                 </div>
-                <Button onClick={() => handleSave('Profile')} className="bg-amber-800 hover:bg-amber-900 dark:bg-amber-600 dark:hover:bg-amber-700 text-white">
-                  Save Changes
+                <Button 
+                  onClick={() => handleSave('Profile')} 
+                  disabled={saving === 'Profile'}
+                  className="bg-amber-800 hover:bg-amber-900 dark:bg-amber-600 dark:hover:bg-amber-700 text-white"
+                >
+                  {saving === 'Profile' ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Saving...
+                    </>
+                  ) : (
+                    'Save Changes'
+                  )}
                 </Button>
               </CardContent>
             </Card>
@@ -108,8 +269,11 @@ const SettingsPage = () => {
                     <p className="text-sm text-muted-foreground">Receive notifications via email</p>
                   </div>
                   <Switch
-                    checked={notifications.email}
-                    onCheckedChange={(checked) => setNotifications({ ...notifications, email: checked })}
+                    checked={settings.notifications.email}
+                    onCheckedChange={(checked) => setSettings({
+                      ...settings,
+                      notifications: { ...settings.notifications, email: checked }
+                    })}
                   />
                 </div>
                 <div className="flex items-center justify-between">
@@ -118,8 +282,11 @@ const SettingsPage = () => {
                     <p className="text-sm text-muted-foreground">Receive push notifications in browser</p>
                   </div>
                   <Switch
-                    checked={notifications.push}
-                    onCheckedChange={(checked) => setNotifications({ ...notifications, push: checked })}
+                    checked={settings.notifications.push}
+                    onCheckedChange={(checked) => setSettings({
+                      ...settings,
+                      notifications: { ...settings.notifications, push: checked }
+                    })}
                   />
                 </div>
                 <div className="flex items-center justify-between">
@@ -128,8 +295,11 @@ const SettingsPage = () => {
                     <p className="text-sm text-muted-foreground">Get weekly platform activity summary</p>
                   </div>
                   <Switch
-                    checked={notifications.weekly}
-                    onCheckedChange={(checked) => setNotifications({ ...notifications, weekly: checked })}
+                    checked={settings.notifications.weekly}
+                    onCheckedChange={(checked) => setSettings({
+                      ...settings,
+                      notifications: { ...settings.notifications, weekly: checked }
+                    })}
                   />
                 </div>
                 <div className="flex items-center justify-between">
@@ -138,12 +308,26 @@ const SettingsPage = () => {
                     <p className="text-sm text-muted-foreground">Receive updates about new features</p>
                   </div>
                   <Switch
-                    checked={notifications.marketing}
-                    onCheckedChange={(checked) => setNotifications({ ...notifications, marketing: checked })}
+                    checked={settings.notifications.marketing}
+                    onCheckedChange={(checked) => setSettings({
+                      ...settings,
+                      notifications: { ...settings.notifications, marketing: checked }
+                    })}
                   />
                 </div>
-                <Button onClick={() => handleSave('Notification')} className="bg-amber-800 hover:bg-amber-900 dark:bg-amber-600 dark:hover:bg-amber-700 text-white">
-                  Save Preferences
+                <Button 
+                  onClick={() => handleSave('Notification')} 
+                  disabled={saving === 'Notification'}
+                  className="bg-amber-800 hover:bg-amber-900 dark:bg-amber-600 dark:hover:bg-amber-700 text-white"
+                >
+                  {saving === 'Notification' ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Saving...
+                    </>
+                  ) : (
+                    'Save Preferences'
+                  )}
                 </Button>
               </CardContent>
             </Card>
@@ -173,12 +357,27 @@ const SettingsPage = () => {
                     <Label>Two-Factor Authentication</Label>
                     <p className="text-sm text-muted-foreground">Add an extra layer of security</p>
                   </div>
-                  <Button variant="outline" className="border-amber-300 dark:border-amber-700/40 text-amber-700 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/20">
-                    Enable 2FA
-                  </Button>
+                  <Switch
+                    checked={settings.security.twoFactorEnabled}
+                    onCheckedChange={(checked) => setSettings({
+                      ...settings,
+                      security: { ...settings.security, twoFactorEnabled: checked }
+                    })}
+                  />
                 </div>
-                <Button onClick={() => handleSave('Security')} className="bg-amber-800 hover:bg-amber-900 dark:bg-amber-600 dark:hover:bg-amber-700 text-white">
-                  Update Security
+                <Button 
+                  onClick={() => handleSave('Security')} 
+                  disabled={saving === 'Security'}
+                  className="bg-amber-800 hover:bg-amber-900 dark:bg-amber-600 dark:hover:bg-amber-700 text-white"
+                >
+                  {saving === 'Security' ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Saving...
+                    </>
+                  ) : (
+                    'Update Security'
+                  )}
                 </Button>
               </CardContent>
             </Card>
@@ -193,7 +392,17 @@ const SettingsPage = () => {
               <CardContent className="space-y-4">
                 <div className="space-y-2">
                   <Label>Theme</Label>
-                  <Select defaultValue="light">
+                  <Select 
+                    value={settings.appearance.theme}
+                    onValueChange={(value: 'light' | 'dark' | 'system') => {
+                      setSettings({
+                        ...settings,
+                        appearance: { ...settings.appearance, theme: value }
+                      });
+                      // Immediately update theme via ThemeProvider
+                      setThemeFromProvider(value);
+                    }}
+                  >
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
@@ -206,7 +415,13 @@ const SettingsPage = () => {
                 </div>
                 <div className="space-y-2">
                   <Label>Dashboard Layout</Label>
-                  <Select defaultValue="default">
+                  <Select 
+                    value={settings.appearance.dashboardLayout}
+                    onValueChange={(value: 'default' | 'compact' | 'expanded') => setSettings({
+                      ...settings,
+                      appearance: { ...settings.appearance, dashboardLayout: value }
+                    })}
+                  >
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
@@ -217,8 +432,19 @@ const SettingsPage = () => {
                     </SelectContent>
                   </Select>
                 </div>
-                <Button onClick={() => handleSave('Appearance')} className="bg-amber-800 hover:bg-amber-900 dark:bg-amber-600 dark:hover:bg-amber-700 text-white">
-                  Save Appearance
+                <Button 
+                  onClick={() => handleSave('Appearance')} 
+                  disabled={saving === 'Appearance'}
+                  className="bg-amber-800 hover:bg-amber-900 dark:bg-amber-600 dark:hover:bg-amber-700 text-white"
+                >
+                  {saving === 'Appearance' ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Saving...
+                    </>
+                  ) : (
+                    'Save Appearance'
+                  )}
                 </Button>
               </CardContent>
             </Card>
@@ -233,7 +459,13 @@ const SettingsPage = () => {
               <CardContent className="space-y-4">
                 <div className="space-y-2">
                   <Label>Language</Label>
-                  <Select defaultValue="en">
+                  <Select 
+                    value={settings.general.language}
+                    onValueChange={(value) => setSettings({
+                      ...settings,
+                      general: { ...settings.general, language: value }
+                    })}
+                  >
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
@@ -246,7 +478,13 @@ const SettingsPage = () => {
                 </div>
                 <div className="space-y-2">
                   <Label>Timezone</Label>
-                  <Select defaultValue="africa/kigali">
+                  <Select 
+                    value={settings.general.timezone}
+                    onValueChange={(value) => setSettings({
+                      ...settings,
+                      general: { ...settings.general, timezone: value }
+                    })}
+                  >
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
@@ -257,8 +495,19 @@ const SettingsPage = () => {
                     </SelectContent>
                   </Select>
                 </div>
-                <Button onClick={() => handleSave('General')} className="bg-amber-800 hover:bg-amber-900 dark:bg-amber-600 dark:hover:bg-amber-700 text-white">
-                  Save Settings
+                <Button 
+                  onClick={() => handleSave('General')} 
+                  disabled={saving === 'General'}
+                  className="bg-amber-800 hover:bg-amber-900 dark:bg-amber-600 dark:hover:bg-amber-700 text-white"
+                >
+                  {saving === 'General' ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Saving...
+                    </>
+                  ) : (
+                    'Save Settings'
+                  )}
                 </Button>
               </CardContent>
             </Card>

@@ -1,11 +1,11 @@
 
 import React from 'react';
 import { StatsCards } from './StatsCards';
-import { RecentActivity } from './RecentActivity';
 import { QuickActions } from './QuickActions';
 import { PopularCourses } from './PopularCourses';
 import { RecentCertificates } from './RecentCertificates';
 import { RecentProctorEvents } from './RecentProctorEvents';
+import { ReportGenerator } from './ReportGenerator';
 import { roleUtils } from '@/utils/roleUtils';
 
 export function DashboardHome() {
@@ -78,17 +78,17 @@ export function DashboardHome() {
 
       {/* Main Content Grid */}
       <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
-        {/* Left Column - Actions and Activity */}
+        {/* Left Column - Actions */}
         <div className="lg:col-span-2 space-y-6 lg:space-y-8">
           <QuickActions />
           {/* <PopularCourses /> */}
         </div>
 
-        {/* Right Column - Activity and Backend-backed widgets */}
+        {/* Right Column - Widgets */}
         <div className="space-y-6 lg:space-y-8">
-          {/* <RecentActivity /> */}
           {isAdmin && (
             <>
+              <ReportGenerator />
               <RecentCertificates />
               <RecentProctorEvents />
             </>

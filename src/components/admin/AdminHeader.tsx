@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Search, User, Settings, Bell, Menu, LogOut } from 'lucide-react';
+import { Search, User, Settings, Menu, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { SidebarTrigger } from '@/components/ui/sidebar';
@@ -30,10 +30,6 @@ export function AdminHeader() {
         description: `Searching for: "${searchQuery}"`,
       });
     }
-  };
-
-  const handleNotificationClick = () => {
-    navigate('/admin/notifications');
   };
 
   const handleSettingsClick = () => {
@@ -81,17 +77,6 @@ export function AdminHeader() {
             onClick={() => toast({ title: "Search", description: "Mobile search coming soon!" })}
           >
             <Search className="h-4 w-4" />
-          </Button>
-
-          {/* Notifications */}
-          <Button
-            variant="outline"
-            size="icon"
-            className="border-border text-amber-700 dark:text-gray-300 hover:bg-card/95 dark:hover:bg-white/10 relative"
-            onClick={handleNotificationClick}
-          >
-            <Bell className="h-4 w-4" />
-            <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
           </Button>
 
           {/* Settings */}

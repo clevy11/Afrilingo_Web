@@ -37,7 +37,7 @@ const AuthDialog = ({ children, onSuccess }: AuthDialogProps) => {
       setOpen(false);
       toast({
         title: "Welcome back!",
-        description: "You have successfully logged in to Gabalang.",
+        description: "You have successfully logged in to Afrilingo.",
       });
       navigate('/admin');
       if (onSuccess) onSuccess();
@@ -66,7 +66,7 @@ const AuthDialog = ({ children, onSuccess }: AuthDialogProps) => {
       await register(firstname, lastname, email, password);
       toast({
         title: "Account created!",
-        description: "Welcome to Gabalang! Please sign in to continue.",
+        description: "Welcome to Afrilingo! Please sign in to continue.",
       });
       setActiveTab('login');
       if (onSuccess) onSuccess();
@@ -88,7 +88,7 @@ const AuthDialog = ({ children, onSuccess }: AuthDialogProps) => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle className="text-center">Welcome to Gabalang</DialogTitle>
+          <DialogTitle className="text-center">Welcome to Afrilingo</DialogTitle>
         </DialogHeader>
         
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">

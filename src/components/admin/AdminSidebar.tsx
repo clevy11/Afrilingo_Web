@@ -143,14 +143,14 @@ export function AdminSidebar() {
             <div className="absolute inset-0 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl blur-sm opacity-30 group-hover:opacity-50 transition-opacity"></div>
             <img
               src="/lovable-uploads/11afa540-f243-4c5a-93e4-f75f0daebf89.png"
-              alt="Gabalang Logo"
+              alt="Afrilingo Logo"
               className="relative h-10 w-10 sm:h-12 sm:w-12 rounded-xl object-cover shadow-lg ring-2 ring-white/50 dark:ring-white/20"
             />
             <div className="absolute -top-1 -right-1 w-3 h-3 sm:w-4 sm:h-4 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full border-2 border-white dark:border-gray-800 animate-pulse shadow-lg"></div>
           </div>
           <div className="flex-1 min-w-0">
             <h2 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-amber-800 to-orange-700 dark:from-amber-400 dark:to-orange-400 bg-clip-text text-transparent truncate">
-              Gabalang
+              Afrilingo
             </h2>
             <p className="text-xs sm:text-sm text-amber-600 dark:text-amber-400/70 font-medium">{roleUtils.getUserDisplayTitle()}</p>
           </div>

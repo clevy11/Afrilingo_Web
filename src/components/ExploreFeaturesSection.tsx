@@ -77,7 +77,7 @@ const ExploreFeaturesSection = () => {
             Explore Our Features
           </h2>
           <p className="text-xl text-amber-100 max-w-2xl mx-auto">
-            Discover the comprehensive tools that make Gabalang the most effective way to learn African languages
+            Discover the comprehensive tools that make Afrilingo the most effective way to learn African languages
           </p>
         </div>
 

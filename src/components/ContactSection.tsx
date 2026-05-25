@@ -46,7 +46,7 @@ const ContactSection = () => {
 
   const handleCardClick = (type: 'email' | 'phone') => {
     if (type === 'email') {
-      window.location.href = 'mailto:Gabalangedtech@gmail.com';
+      window.location.href = 'mailto:Afrilingoedtech@gmail.com';
       toast({
         title: "Opening Email Client",
         description: "Redirecting to your default email application...",
@@ -85,7 +85,7 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-foreground">Email Us</h3>
-                    <p className="text-amber-700 dark:text-gray-400 hover:text-foreground transition-colors">Gabalangedtech@gmail.com</p>
+                    <p className="text-amber-700 dark:text-gray-400 hover:text-foreground transition-colors">Afrilingoedtech@gmail.com</p>
                   </div>
                 </div>
               </CardContent>

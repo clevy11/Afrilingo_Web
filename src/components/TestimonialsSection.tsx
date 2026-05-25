@@ -6,7 +6,7 @@ const testimonials = [
   {
     name: "Amara Johnson",
     role: "Cultural Researcher",
-    content: "Gabalang helped me connect with my Yoruba heritage in ways I never imagined. The cultural context provided with each lesson made learning so much more meaningful.",
+    content: "Afrilingo helped me connect with my Yoruba heritage in ways I never imagined. The cultural context provided with each lesson made learning so much more meaningful.",
     rating: 5,
     avatar: "AJ",
     country: "🇺🇸 USA"
@@ -14,7 +14,7 @@ const testimonials = [
   {
     name: "David Ochieng",
     role: "Business Professional",
-    content: "Learning Swahili through Gabalang opened up incredible business opportunities across East Africa. The pronunciation feature is absolutely outstanding.",
+    content: "Learning Swahili through Afrilingo opened up incredible business opportunities across East Africa. The pronunciation feature is absolutely outstanding.",
     rating: 5,
     avatar: "DO",
     country: "🇰🇪 Kenya"
@@ -22,7 +22,7 @@ const testimonials = [
   {
     name: "Sarah Mohamed",
     role: "Language Enthusiast",
-    content: "I've tried many language apps, but Gabalang's approach to African languages is unmatched. The native speaker interactions made all the difference.",
+    content: "I've tried many language apps, but Afrilingo's approach to African languages is unmatched. The native speaker interactions made all the difference.",
     rating: 5,
     avatar: "SM",
     country: "🇪🇬 Egypt"
@@ -30,7 +30,7 @@ const testimonials = [
   {
     name: "Marcus Williams",
     role: "Travel Blogger",
-    content: "Gabalang prepared me perfectly for my travels across Africa. I could actually communicate with locals and understand cultural nuances.",
+    content: "Afrilingo prepared me perfectly for my travels across Africa. I could actually communicate with locals and understand cultural nuances.",
     rating: 5,
     avatar: "MW",
     country: "🇬🇧 UK"

@@ -7,9 +7,9 @@ const AboutSection = () => {
     <section id="about" className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-amber-900 dark:text-foreground mb-6">About Gabalang</h2>
+          <h2 className="text-4xl font-bold text-amber-900 dark:text-foreground mb-6">About Afrilingo</h2>
           <p className="text-xl text-amber-700 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            Gabalang is dedicated to making African languages accessible to everyone. We specialize in helping foreigners living in Rwanda and anyone who needs to learn Kinyarwanda integrate seamlessly into Rwandan culture and society.
+            Afrilingo is dedicated to making African languages accessible to everyone. We specialize in helping foreigners living in Rwanda and anyone who needs to learn Kinyarwanda integrate seamlessly into Rwandan culture and society.
           </p>
         </div>
 
@@ -102,7 +102,7 @@ const AboutSection = () => {
         <div className="text-center">
           <h3 className="text-2xl font-bold text-amber-900 dark:text-foreground mb-4">Our Mission</h3>
           <p className="text-lg text-amber-700 dark:text-gray-400 max-w-4xl mx-auto">
-            At Gabalang, we believe that language is the bridge to understanding, connection, and belonging.
+            At Afrilingo, we believe that language is the bridge to understanding, connection, and belonging.
             Our mission is to empower foreigners in Rwanda and Kinyarwanda learners worldwide with the linguistic
             tools they need to thrive in their personal and professional lives while honoring the beauty and
             richness of African languages and cultures.
